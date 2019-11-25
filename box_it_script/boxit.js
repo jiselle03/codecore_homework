@@ -21,13 +21,20 @@ function drawBarsAround(str, num) {
 };
 
 function boxIt(arr) {
+    let longest;
     let result = '';
-    const longest = arr.sort(function(a, b) { return b.length - a.length })[0];
-    const num = longest.length;
 
+    for (let str of arr) {
+        longest = arr[0];
+        if (str.length > longest.length) {
+            longest = str
+        }
+    }
+    const num = longest.length;
+    
     for (let i = 0; i < arr.length; i++) {
         if (i === 0) {
-            result += `${drawTopBorder(num)}\n${drawBarsAround(arr[i])}\n${drawMiddleBorder(num)}\n`;
+            result += `${drawTopBorder(num)}\n${drawBarsAround(arr[i], num)}\n${drawMiddleBorder(num)}\n`;
         } else if (i > 0 && i < arr.length - 1) {
             result += `${drawBarsAround(arr[i], num)}\n${drawMiddleBorder(num)}\n`;
         } else {
