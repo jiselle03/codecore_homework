@@ -38,5 +38,4 @@ function boxIt(arr) {
 };
 
 const arr = ['Jon Snow', 'Cersei Lannister', 'Daenerys Targaryen'];
-
 console.log(boxIt(arr));
