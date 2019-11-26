@@ -21,11 +21,10 @@ function drawBarsAround(str, num) {
 };
 
 function boxIt(arr) {
-    let longest;
+    let longest = arr[0];
     let result = '';
 
     for (let str of arr) {
-        longest = arr[0];
         if (str.length > longest.length) {
             longest = str
         }
@@ -48,4 +47,3 @@ function boxIt(arr) {
 
 console.log(boxIt(['Jon Snow']));
 console.log(boxIt(['Jon Snow', 'Cersei Lannister', 'Daenerys Targaryen']));
-
