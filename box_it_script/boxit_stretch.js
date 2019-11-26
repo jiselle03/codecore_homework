@@ -26,21 +26,21 @@ function drawLine(num) {
 };
 
 function drawTopBorderName(numName) {
-    return '┏'+ '━'.repeat(numName) + '┓';
+    return '┏'+ '━'.repeat(numName) + '┳';
 };
 function drawTopBorderHouse(numHouse) {
     return '━'.repeat(numHouse + 1) + '┓';
 };
 
 function drawMiddleBorderName(numName) {
-    return '┣' + '━'.repeat(numName) + '┫';
+    return '┣' + '━'.repeat(numName) + '╋';
 };
 function drawMiddleBorderHouse(numHouse) {
     return '━'.repeat(numHouse + 1) + '┫';
 };
 
 function drawBottomBorderName(numName) {
-    return '┗' + '━'.repeat(numName) + '┛';
+    return '┗' + '━'.repeat(numName) + '┻';
 };
 function drawBottomBorderHouse(numHouse) {
     return '━'.repeat(numHouse + 1) + '┛';
