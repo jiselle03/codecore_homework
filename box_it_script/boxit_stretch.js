@@ -82,7 +82,7 @@ function boxIt(names, houses) {
         } else if (i > 0 && i < names.length - 1) {
             result += `${drawMiddleBorderName(numName)}${drawMiddleBorderHouse(numHouse)}\n${drawBarsAroundName(names[i], numName)}${drawBarsAroundHouse(houses[i], numHouse)}\n`;
         } else {
-            result += `${drawBarsAroundName(names[i], numName)}${drawBarsAroundHouse(houses[i], numHouse)}\n${drawBottomBorderName(numName)}${drawBottomBorderHouse(numHouse)}`;
+            result += `${drawMiddleBorderName(numName)}${drawMiddleBorderHouse(numHouse)}\n${drawBarsAroundName(names[i], numName)}${drawBarsAroundHouse(houses[i], numHouse)}\n${drawBottomBorderName(numName)}${drawBottomBorderHouse(numHouse)}`;
         }
     }
     return result;
