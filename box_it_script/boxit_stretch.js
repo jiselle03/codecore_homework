@@ -1,4 +1,6 @@
-// Box It Script
+#!/usr/bin/env node
+
+// Box It Script Stretch
 
 const csv = require('csv-parser');
 const fs = require('fs');
@@ -85,4 +87,3 @@ function boxIt(names, houses) {
     }
     return result;
 };
-
