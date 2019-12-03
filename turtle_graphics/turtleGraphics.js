@@ -66,58 +66,76 @@ class Turtle {
                 }
             }
         }
-        for (let i = 0; i < this.coordinates.length; i++) {
 
-            if (this.coordinates[i + 1] && this.coordinates[i][1] === this.coordinates[i + 1][1]) {
-                if (this.coordinates[i][0] < this.coordinates[i + 1][0]) {
-                    if (this.coordinates[i][0] === 0) {
-                        toPrint += '•'.repeat(this.coordinates[i + 1][0] - this.coordinates[i][0] + 1) + '\n';
+        if (this.coordinates.length === 2) { // for 1 line drawings
+            if (this.coordinates[1][0] > this.coordinates[0][0]) {
+                toPrint += '•'.repeat(this.coordinates[1][0] + 1)
+
+            } else if (this.coordinates[1][1] > this.coordinates[0][1]) {
+                for (let m = 0; m <= this.coordinates[1][1]; m++) {
+                    if (m < this.coordinates[1][1]) {
+                        toPrint += '•\n';
                     } else {
-                        position += '•'.repeat(this.coordinates[i + 1][0] - this.coordinates[i][0]) + '\n';
-                    }
-                } else if (this.coordinates[i][0] > this.coordinates[i + 1][0]){
-                    if (this.coordinates[i + 1][0] === 0) {
-                        toPrint += '•'.repeat(this.coordinates[i][0] - this.coordinates[i + 1][0] + 1) + '\n'
-                    } else {
-                        toPrint += '•'.repeat(this.coordinates[i][0] - this.coordinates[i + 1][0]) + '\n'
-                    }
-                } 
-            } else if (this.coordinates[i + 1]) { 
-                if (this.coordinates[i][1] > this.coordinates[i + 1][1]) {
-                    for (let k = 1; k < this.coordinates[i][1]; k++) {
-                        for (let j = 0; j < this.coordinates.length; j++) {
-                            if (this.coordinates[i][1] === this.coordinates[j][1] && this.coordinates[i][0] !== this.coordinates[j][0]) {
-                                if (this.coordinates[i][0] < this.coordinates[j][0]) {
-                                    toPrint += ' '.repeat(this.coordinates[i][0]) + '•' + ' '.repeat(this.coordinates[j][0] - this.coordinates[i][0] - 1) + '•' + '\n';
-                                } else if (this.coordinates[i][0] > this.coordinates[j][0]) {
-                                    toPrint += ' '.repeat(this.coordinates[j][0]) + '•' + ' '.repeat(this.coordinates[i][0] - this.coordinates[j][0] - 1) + '•' + '\n';
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    for (let l = 1; l < this.coordinates[i + 1][1]; l++) { // what if turtle moves down first? test!
-                        for (let j = 0; j < this.coordinates.length; j++) {
-                            if (this.coordinates[i][1] === this.coordinates[j][1] && this.coordinates[i][0] !== this.coordinates[j][0]) {
-                                if (this.coordinates[i][0] < this.coordinates[j][0]) {
-                                    toPrint += ' '.repeat(this.coordinates[i][0]) + '•' + ' '.repeat(this.coordinates[j][0] - this.coordinates[i][0] - 1) + '•' + '\n';
-                                } else if (this.coordinates[i][0] > this.coordinates[j][0]) {
-                                    toPrint += ' '.repeat(this.coordinates[j][0]) + '•' + ' '.repeat(this.coordinates[i][0] - this.coordinates[j][0] - 1) + '•' + '\n';
-                                }
-                            }
-                        }
+                        toPrint += '•';
                     }
                 }
-                
             }
-
+        } else { // 2 or more lines
+            for (let i = 0; i < this.coordinates.length; i++) {
+                if (this.coordinates[i + 1] && this.coordinates[i][0] !== this.coordinates[i + 1][0]) { // if y is same, x 
+                    if (this.coordinates[i][0] < this.coordinates[i + 1][0]) {
+                        if (this.coordinates[i][0] === 0) {
+                            toPrint += '•'.repeat(this.coordinates[i + 1][0] - this.coordinates[i][0] + 1) + '\n';
+                        } else {
+                            position += '•'.repeat(this.coordinates[i + 1][0] - this.coordinates[i][0]) + '\n';
+                        }
+                    } else if (this.coordinates[i][0] > this.coordinates[i + 1][0]){
+                        if (this.coordinates[i + 1][0] === 0) {
+                            toPrint += '•'.repeat(this.coordinates[i][0] - this.coordinates[i + 1][0] + 1) + '\n'
+                        } else {
+                            toPrint += '•'.repeat(this.coordinates[i][0] - this.coordinates[i + 1][0]) + '\n'
+                        }
+                    } 
+                } else if (this.coordinates[i + 1]) { 
+                    if (this.coordinates[i][1] > this.coordinates[i + 1][1]) {
+                        for (let k = 1; k < this.coordinates[i][1]; k++) {
+                            for (let j = 0; j < this.coordinates.length; j++) {
+                                if (this.coordinates[i][1] === this.coordinates[j][1] && this.coordinates[i][0] !== this.coordinates[j][0]) {
+                                    if (this.coordinates[i][0] < this.coordinates[j][0]) {
+                                        toPrint += ' '.repeat(this.coordinates[i][0]) + '•' + ' '.repeat(this.coordinates[j][0] - this.coordinates[i][0] - 1) + '•' + '\n';
+                                    } else if (this.coordinates[i][0] > this.coordinates[j][0]) {
+                                        toPrint += ' '.repeat(this.coordinates[j][0]) + '•' + ' '.repeat(this.coordinates[i][0] - this.coordinates[j][0] - 1) + '•' + '\n';
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        for (let l = 1; l < this.coordinates[i + 1][1]; l++) { // what if turtle moves down first? test!
+                            for (let j = 0; j < this.coordinates.length; j++) {
+                                if (this.coordinates[i][1] === this.coordinates[j][1] && this.coordinates[i][0] !== this.coordinates[j][0]) {
+                                    if (this.coordinates[i][0] < this.coordinates[j][0]) {
+                                        toPrint += ' '.repeat(this.coordinates[i][0]) + '•' + ' '.repeat(this.coordinates[j][0] - this.coordinates[i][0] - 1) + '•' + '\n';
+                                    } else if (this.coordinates[i][0] > this.coordinates[j][0]) {
+                                        toPrint += ' '.repeat(this.coordinates[j][0]) + '•' + ' '.repeat(this.coordinates[i][0] - this.coordinates[j][0] - 1) + '•' + '\n';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+    
+                } 
+            }
         }
-        console.log(toPrint);
 
+        console.log(toPrint);
+        
     }
 
 }
 
 const turtle1 = new Turtle(0, 0)
 
-turtle1.forward(5).right().forward(5).right().forward(5).print();
+// turtle1.forward(5).right().forward(5).right().forward(5).print();
+
+turtle1.forward(10).right().right().right().left().forward(10).print() // 
