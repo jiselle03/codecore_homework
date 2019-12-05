@@ -75,18 +75,18 @@ class Turtle {
         let xArr = [];
         let yArr = [];
         
-        for (let i = 0; i < this.coordinates.length; i++) {
-            xArr.push(this.coordinates[i][0]);
+        for (let i = 0; i < this.coordinates.length; i++) { // to create a box to print turtles on 
+            xArr.push(this.coordinates[i][0]); // (and not create new lines in case turtle backtracks)
             yArr.push(this.coordinates[i][1]);
         }
-        let maxX = Math.max(...xArr);
+        let maxX = Math.max(...xArr); 
         let maxY = Math.max(...yArr);
         let toPrint = [];
 
         for (let j = 0; j <= maxY; j++) {
             toPrint.push(' '.repeat(maxX + 1))
         }
-        toPrint.forEach((value, index) => {toPrint[index] = value.split('')}) 
+        toPrint.forEach((value, index) => {toPrint[index] = value.split('')}) // split into array per line to be able to find the right y/row in loop
         
         for (let k = 0; k < this.coordinates.length; k++) { // replace spots in array with '•'
             if (this.coordinates[k + 1] && this.coordinates[k + 1][0] > this.coordinates[k][0]) { // x2 > x1
@@ -124,29 +124,74 @@ class Turtle {
             }
         }
         
-        let finalPrint = '';
+        let actualPrint = '';
         toPrint.forEach((value, index) => {toPrint[index] = value.join(' ')})
         
         for (let t = 0; t < toPrint.length; t++) {
             if (t < toPrint.length - 1) {
-                finalPrint += toPrint[t] + '\n'
+                actualPrint += toPrint[t] + '\n'
             } else {
-                finalPrint += toPrint[t]
+                actualPrint += toPrint[t]
             }
         }
-        console.log(finalPrint);
+        console.log(actualPrint);
         return this;
     }
 
 }
 
-const turtle1 = new Turtle(3, 2)
+const raphael = new Turtle(3, 2)
 
-turtle1.forward(10).right().right().right().left().forward(10).print().allPoints();
+// raphael.forward(10).right().right().right().left().forward(10).print().allPoints();
 
-const turtle2 = new Turtle(0, 0)
+const michelangelo = new Turtle(0, 0)
 
-// turtle2.forward(5).right().forward(5).right().forward(5).right().forward(5).allPoints().print();
+// michaelangelo.forward(5).right().forward(5).right().forward(5).right().forward(5).allPoints().print();
 
-const turtle3 = new Turtle(5, 5)
-// turtle3.forward(10).right().forward(5).right().forward(10).right().forward(5).right().forward(2).right().forward(5).left().forward(2).left().forward(5).print();
+const donatello = new Turtle(5, 5)
+// donatello.forward(10).right().forward(5).right().forward(10).right().forward(5).right().forward(2).right().forward(5).left().forward(2).left().forward(5).print();
+
+
+
+
+/******************************
+ 
+            STRETCH 
+ 
+*******************************/
+
+const argv = process.argv[2];
+
+if (typeof argv === 'string') {
+    nodeTurtle(argv)
+} else {
+    console.log('Please provide instructions for your turtle.')
+}
+
+function nodeTurtle(argv) {
+    const tPos = argv.split('-');
+
+    if (tPos[0][0] === 't') {
+        const startPos = tPos.shift().substr(1).split(',')
+        x = parseInt(startPos[0]);
+        y = parseInt(startPos[1]);
+    } else {
+        x = 0;
+        y = 0;
+    }
+
+    const leonardo = new Turtle(x, y);
+
+    for (let movement of tPos) {
+        if (movement[0] === 'f') {
+            num = parseInt(movement.substr(1))
+            leonardo.forward(num);
+        } else if (movement[0] === 'r') {
+            leonardo.right();
+        } else if (movement[0] === 'l') {
+            leonardo.left();
+        }
+    }
+    leonardo.print();
+
+}
