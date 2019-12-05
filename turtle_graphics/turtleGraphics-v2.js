@@ -5,29 +5,46 @@ class Turtle {
         this.x = x || 0;
         this.y = y || 0;
         this.coordinates = [[x, y]];
-        this.startingCoord = [x, y];
     }
 
     angle = 0;
     currentCoord = [];
 
     forward(num) {
-        if (this.angle === 0 && this.x === 0 && this.y === 0) {
-            this.x = num;
-        } else if (this.angle === 0) {
-            this.x += num;
-        } else if (this.angle === 90 && this.x === 0 && this.y === 0) {
-            this.y = num;
-        } else if (this.angle === 90) {
-            this.y += num;
-        } else if (this.angle === 180) {
-            this.x -= num;
-        } else if (this.angle === 270) {
-            this.y -= num;
+        if (this.angle === 0) { // moving right
+            let newX = this.x + num;
+            for (let a = this.x; a < newX; a++) {
+                this.x++;
+                this.currentCoord.push(this.x, this.y);
+                this.coordinates.push(this.currentCoord);
+                this.currentCoord = [];
+            }
+        } else if (this.angle === 90) { // moving down
+            let newY = this.y + num;
+            for (let b = this.y; b < newY; b++) {
+                this.y++;
+                this.currentCoord.push(this.x, this.y);
+                this.coordinates.push(this.currentCoord);
+                this.currentCoord = [];
+            }
+        } else if (this.angle === 180) { // moving left
+            let newX = this.x - num;
+            for (let c = this.x; c > newX; c--) {
+                this.x--;
+                this.currentCoord.push(this.x, this.y);
+                this.coordinates.push(this.currentCoord);
+                this.currentCoord = [];
+            }
+        } else if (this.angle === 270) { // moving up
+            let newY = this.y - num;
+            for (let d = this.y; d > newY; d--) {
+                this.y--;
+                this.currentCoord.push(this.x, this.y);
+                this.coordinates.push(this.currentCoord);
+                this.currentCoord = [];
+            }
         }
-        this.currentCoord.push(this.x, this.y);
-        this.coordinates.push(this.currentCoord);
-        this.currentCoord = [];
+
         return this;
     }
 
@@ -51,6 +68,7 @@ class Turtle {
 
     allPoints() {
         console.log(this.coordinates);
+        return this;
     }
 
     print() {
@@ -117,17 +135,18 @@ class Turtle {
             }
         }
         console.log(finalPrint);
-        
+        return this;
     }
 
 }
 
-// need to figure out code for if turtle backtracks/ walks on path it previously walked
+const turtle1 = new Turtle(3, 2)
 
-const turtle1 = new Turtle(0, 0)
+turtle1.forward(10).right().right().right().left().forward(10).print().allPoints();
 
-// turtle1.forward(5).print()
+const turtle2 = new Turtle(0, 0)
 
-// turtle1.forward(5).right().forward(5).right().forward(3).right().forward(3).print();
+// turtle2.forward(5).right().forward(5).right().forward(5).right().forward(5).allPoints().print();
 
-turtle1.forward(10).right().right().right().left().forward(10).print() // 
+const turtle3 = new Turtle(5, 5)
+// turtle3.forward(10).right().forward(5).right().forward(10).right().forward(5).right().forward(2).right().forward(5).left().forward(2).left().forward(5).print();

@@ -1,5 +1,18 @@
 // Turtle Graphics
 
+/*********************************************
+ 
+
+
+        PLEASE SEE VERSION TWO FILE
+
+            NOT THIS FILE!!!
+
+
+
+**********************************************/
+
+
 class Turtle {
     constructor(x, y) {
         this.x = x || 0;
