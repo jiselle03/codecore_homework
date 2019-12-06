@@ -4,7 +4,9 @@
  
 
 
-        PLEASE SEE VERSION TWO FILE
+        PLEASE SEE OTHER FILE
+
+        'turtleGraphics.js'
 
             NOT THIS FILE!!!
 
@@ -179,3 +181,44 @@ const turtle1 = new Turtle(0, 0)
 // turtle1.forward(5).right().forward(5).right().forward(5).print();
 
 turtle1.forward(10).right().right().right().left().forward(10).print() // 
+
+
+        // for (let k = 0; k < this.coordinates.length; k++) { // replace spots in array with '•'
+        //     if (this.coordinates[k + 1] && this.coordinates[k + 1][0] > this.coordinates[k][0]) { // x2 > x1
+        //         for (let l = 0; l < toPrint.length; l++) { // looping through big array
+        //             if (l === this.coordinates[k][1]) { // if index is equal to y
+        //                 for (let m = this.coordinates[k][0]; m < toPrint[l].length; m++) { // looping through small arrays within toPrint
+        //                     toPrint[l][m] = '•';
+        //                 }
+        //             }
+        //         }
+        //     } else if (this.coordinates[k + 1] && this.coordinates[k + 1][0] < this.coordinates[k][0]) { // x1 > x2
+        //         for (let n = 0; n < toPrint.length; n++) { // looping through big array to find y
+        //             if (n === this.coordinates[k][1]) { // if index is equal to y
+        //                 for (let o = toPrint[n].length - 1; o > this.coordinates[k + 1][0]; o--) { // looping through small array to print x spots
+        //                     toPrint[n][o] = '•';
+        //                 }
+        //             }
+        //         }
+        //     } else if (this.coordinates[k + 1] && this.coordinates[k + 1][1] > this.coordinates[k][1]) { // y2 > y1
+        //         for (let p = this.coordinates[k][1]; p < toPrint.length; p++) { // looping through big array to find y rows
+        //             if (p >= this.coordinates[k][1] && p <= this.coordinates[k + 1][1]) { // y rows
+        //                 for (let q = 0; q < toPrint[p].length; q++) { // looping through small array to find x
+        //                     if (q === this.coordinates[k][0]) { // if index is equal to x
+        //                         toPrint[p][q] = '•';
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     } else if (this.coordinates[k + 1] && this.coordinates[k][1] > this.coordinates[k + 1][1]) { // y1 > y2
+        //         for (let r = toPrint.length - 1; r > this.coordinates[k + 1][1]; r--) { // looping through big array to find y
+        //             if (r >= this.coordinates[k + 1][1] && r <= this.coordinates[k][1]) { // y rows
+        //                 for (let s = 0; s < toPrint[r].length; s++) { // looping through small array to find x
+        //                     if (s === this.coordinates[k][0]) { // if index is equal to x
+        //                         toPrint[r][s] = '•';
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
