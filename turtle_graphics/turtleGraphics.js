@@ -103,7 +103,7 @@ class Turtle {
             toPrint.push(' '.repeat(maxX - minX + 1))
         }
 
-        // split into array per line to be able to find the right y/row in loop
+        // split into array per line and character to be able to find the right y and x
         toPrint.forEach((value, index) => {toPrint[index] = value.split('')}) 
         
         // looping through coordinates array to find which spaces to replace with turtles
@@ -114,14 +114,15 @@ class Turtle {
             toPrint[y - minY][x - minX] = '•';
         }
         
+        // joining all the elements
         // add a space for aesthetic purpose (so x and y movements look more even)
         toPrint.forEach((value, index) => {toPrint[index] = value.join(' ')}) 
         
-        for (let t = 0; t < toPrint.length; t++) {
-            if (t < toPrint.length - 1) {
-                this.actualPrint += toPrint[t] + '\n'
+        for (let l = 0; l < toPrint.length; l++) {
+            if (l < toPrint.length - 1) {
+                this.actualPrint += toPrint[l] + '\n'
             } else {
-                this.actualPrint += toPrint[t]
+                this.actualPrint += toPrint[l]
             }
         }
         console.log(this.actualPrint);
@@ -205,6 +206,5 @@ function nodeTurtle(turtleCommands) {
             console.log(`🐢 Drawing written to ${fileName}.`);
         })
     } 
-    
 };
 
