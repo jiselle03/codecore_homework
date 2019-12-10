@@ -15,12 +15,12 @@ const checkAnswer = answer => {
         tasks.forEach((item, index) => {
             console.log(`${index} ${item}`);
         });
-        rl.question('(v) View • (n) New • (cX) Complete • (dX) Delete • (q) Quit\n', checkAnswer);
+        showCommands();
         
     } else if (answer === 'n') {
         rl.question('What?\n', enterTask);
         
-    } else if (answer[0] === 'c') {
+    } else if (answer[0] === 'c' && answer.length >= 2 && parseInt(answer[1])) {
         console.log(`Completed "${tasks[answer[1]].slice(4)}"`)
         let item = tasks[answer[1]].split('');
         item[1] = '✓';
@@ -31,25 +31,29 @@ const checkAnswer = answer => {
         
         tasks[answer[1]] = itemStr;
         
-        rl.question('(v) View • (n) New • (cX) Complete • (dX) Delete • (q) Quit\n', checkAnswer);
+        showCommands();
 
-    } else if (answer[0] === 'd') {
+    } else if (answer[0] === 'd' && answer.length >= 2 && parseInt(answer[1])) {
         console.log(`Deleted "${tasks[answer[1]].slice(4)}"`)
-        tasks.splice(answer[1]);
-        rl.question('(v) View • (n) New • (cX) Complete • (dX) Delete • (q) Quit\n', checkAnswer);
-
+        tasks.splice(answer[1], 1);
+        showCommands();
     } else if (answer === 'q') {
         console.log('See you soon! 😄')
         rl.close();
     } else {
-        rl.question('Please enter a valid command.\n(v) View • (n) New • (cX) Complete • (dX) Delete • (q) Quit\n', checkAnswer);
+        console.log('Please enter a valid command.')
+        showCommands();
     }
         
 };
 
+const showCommands = function() {
+    rl.question(`(v) View • (n) New • (cX) Complete • (dX) Delete • (q) Quit\n`, checkAnswer);
+}
+
 const enterTask = answer => {
     tasks.push(`[ ] ${answer}`);
-    rl.question('(v) View • (n) New • (cX) Complete • (dX) Delete • (q) Quit\n', checkAnswer);
+    showCommands();
 };
 
 rl.question('Welcome to Todo CLI!\n--------------------\n(v) View • (n) New • (cX) Complete • (dX) Delete • (q) Quit\n', checkAnswer);
