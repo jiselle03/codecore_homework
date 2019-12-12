@@ -77,11 +77,6 @@ function showCommands() {
     
             showCommands();
         } else if (answer === 's') {
-            let fileName = 'ToDoList.json';
-            if (process.argv[2]) {
-                fileName = process.argv[2];
-            };
-
             const taskArr = [];
             let task = {};
             for (let j = 0; j < tasks.length; j++) {
