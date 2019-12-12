@@ -13,6 +13,7 @@ let fileName = 'ToDoList.json';
 
 console.log('Welcome to Todo CLI!\n--------------------');
 
+// Check if fileName is given (if not, use default)
 if (process.argv[2]) {
     fileName = process.argv[2];
     showCommands();
@@ -20,6 +21,7 @@ if (process.argv[2]) {
     showCommands();
 }
 
+// Read .json file and add to task list
 fs.readFile(fileName, (err, data) => {
     if (typeof data !== 'undefined') {
         const fileContents = JSON.parse(data);
@@ -34,9 +36,10 @@ fs.readFile(fileName, (err, data) => {
     }
 });
 
-
 function showCommands() {
+    // Show command options after every request is completed
     rl.question(`(v) View • (n) New • (cX) Complete • (dX) Delete • (s) Save • (q) Quit\n`, answer => {
+        // View task list
         if (answer === 'v') {
             if (tasks.length === 0) {
                 console.log('Your list is empty.')
@@ -46,10 +49,10 @@ function showCommands() {
                 });
             }
             showCommands();
-            
+        // Add new task
         } else if (answer === 'n') {
             rl.question('What?\n', enterTask);
-            
+        // Mark task as complete
         } else if (answer[0] === 'c' && answer.length >= 2 && typeof parseInt(answer[1]) === 'number') {
             if (answer[1] <= tasks.length - 1) {
                 console.log(`Completed "${tasks[answer[1]].slice(4)}"`)
@@ -66,7 +69,7 @@ function showCommands() {
             }
             
             showCommands();
-    
+        // Delete task from list
         } else if (answer[0] === 'd' && answer.length >= 2 && typeof parseInt(answer[1]) === 'number') {
             if (answer[1] <= tasks.length - 1) {
                 console.log(`Deleted "${tasks[answer[1]].slice(4)}"`)
@@ -76,6 +79,7 @@ function showCommands() {
             }
     
             showCommands();
+        // Save task list to file
         } else if (answer === 's') {
             const taskArr = [];
             let task = {};
@@ -88,7 +92,7 @@ function showCommands() {
                 taskArr.push(task);
             }
             fileContents = JSON.stringify(taskArr);
-
+            
             fs.writeFile(fileName, fileContents, err => {
                 if (err) {
                     console.error(err);
@@ -97,6 +101,7 @@ function showCommands() {
                 console.log(`Saved "${fileName}" to disk`);
                 showCommands();
             });
+        // Quit
         } else if (answer === 'q') {
             console.log('See you soon! 😄')
             rl.close();
@@ -107,6 +112,7 @@ function showCommands() {
     });
 }
 
+// Enter task to add
 const enterTask = answer => {
     tasks.push(`[ ] ${answer}`);
     showCommands();
