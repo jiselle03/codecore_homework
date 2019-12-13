@@ -53,7 +53,7 @@ function showCommands() {
         } else if (answer === 'n') {
             rl.question('What?\n', enterTask);
         // Mark task as complete
-        } else if (answer[0] === 'c' && answer.length >= 2 && answer[1] <= tasks.length - 1) {
+        } else if (answer[0] === 'c' && answer.length >= 2 && answer.slice(1) <= tasks.length - 1) {
             console.log(`Completed "${tasks[answer[1]].slice(4)}"`)
             let item = tasks[answer[1]].split('');
             item[1] = '✓';
@@ -66,7 +66,7 @@ function showCommands() {
             
             showCommands();
         // Delete task from list
-        } else if (answer[0] === 'd' && answer.length >= 2 && answer[1] <= tasks.length - 1) {
+        } else if (answer[0] === 'd' && answer.length >= 2 && answer.slice(1) <= tasks.length - 1) {
             console.log(`Deleted "${tasks[answer[1]].slice(4)}"`)
             tasks.splice(answer[1], 1);
     
