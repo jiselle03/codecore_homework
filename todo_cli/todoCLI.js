@@ -53,30 +53,22 @@ function showCommands() {
         } else if (answer === 'n') {
             rl.question('What?\n', enterTask);
         // Mark task as complete
-        } else if (answer[0] === 'c' && answer.length >= 2 && typeof parseInt(answer[1]) === 'number') {
-            if (answer[1] <= tasks.length - 1) {
-                console.log(`Completed "${tasks[answer[1]].slice(4)}"`)
-                let item = tasks[answer[1]].split('');
-                item[1] = '✓';
-                let itemStr = '';
-                for (let i = 0; i < item.length; i++) {
-                    itemStr += item[i];
-                };
-                
-                tasks[answer[1]] = itemStr;
-            } else {
-                console.log('Please enter a valid index number.')
-            }
+        } else if (answer[0] === 'c' && answer.length >= 2 && answer[1] <= tasks.length - 1) {
+            console.log(`Completed "${tasks[answer[1]].slice(4)}"`)
+            let item = tasks[answer[1]].split('');
+            item[1] = '✓';
+            let itemStr = '';
+            for (let i = 0; i < item.length; i++) {
+                itemStr += item[i];
+            };
+            
+            tasks[answer[1]] = itemStr;
             
             showCommands();
         // Delete task from list
-        } else if (answer[0] === 'd' && answer.length >= 2 && typeof parseInt(answer[1]) === 'number') {
-            if (answer[1] <= tasks.length - 1) {
-                console.log(`Deleted "${tasks[answer[1]].slice(4)}"`)
-                tasks.splice(answer[1], 1);
-            } else {
-                console.log('Please enter a valid index number.')
-            }
+        } else if (answer[0] === 'd' && answer.length >= 2 && answer[1] <= tasks.length - 1) {
+            console.log(`Deleted "${tasks[answer[1]].slice(4)}"`)
+            tasks.splice(answer[1], 1);
     
             showCommands();
         // Save task list to file
