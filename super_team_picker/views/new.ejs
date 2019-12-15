@@ -1,0 +1,22 @@
+<%- include('./partials/header') %>
+
+<form method="POST" action="/cohorts">
+    
+    <div class="form-group">
+        <label for="logoUrl">Logo URL</label>
+        <input type="url" class="form-control" name="logoUrl" id="logoUrl" placeholder="e.g. https://www.hogwarts.edu/mrs_norris.png">
+    </div>
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" name="name" id="name" placeholder="Puddlemere United">
+    </div>
+    <div class="form-group">
+        <label for="members">Members</label>
+        <textarea class="form-control" id="members" rows="3" name="members" placeholder="Oliver Wood, Gwenog Jones, Viktor Krum"></textarea>
+    </div>
+
+    <input type="submit" class="float-right" value="Submit">
+    
+</form>
+
+<%- include('./partials/footer') %>

@@ -1,0 +1,115 @@
+<%- include('./partials/header') %>
+
+<div class="card mb-3">
+    <div class="card-body">
+        <h4 class="card-title w-25"><%= cohort.name %></h4>
+        <p class="card-text" id="members"><%= cohort.members %></p>
+            <input type="submit" value="Delete" class="btn btn-md btn-danger float-right">
+            <a href="/cohorts/<%= cohort.id %>/edit"><input type="submit" value="Edit" class="btn btn-md btn-warning mr-2 float-right"></a>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+        <hr>
+        <form>
+
+            <h5>Method</h5>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="method" id="teamCount" value="teamCount">
+
+                <label class="form-check-label" for="teamCount">
+                    Team Count
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="method" id="perTeam" value="perTeam">
+                <label class="form-check-label" for="perTeam">
+                    Number Per Team
+                </label>
+            </div>
+            <div>&nbsp;</div>
+            <div class="form-group">
+                <h5 for="quantity">Quantity</h5>
+                <input type="text" class="form-control" name="quantity" id="quantity">
+            </div>
+            <input type="submit" value="Assign Teams" class="btn btn-outline-primary btn-lg btn-block">
+            
+        </form>
+    </div>
+</div>
+
+<% function perTeam(quantity) { %>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Members</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <% const teamNums = Math.ceil(memberArr.length / quantity); %>
+        <% for (let j = 1; j <= teamNums; j++) { %>
+        <tr>
+            <td><%= j %></td>
+            <% let team = []; %>
+            <% if (j === teamNums) { %>
+                <td><%= memberArr.join(','); %></td>
+            <% } else { %>
+                <% team = memberArr.slice(0, quantity); %>
+                <td><%= team.join(','); %></td>
+                <% memberArr.splice(0, quantity); %>
+            <% } %>
+        </tr>
+        <% } %>
+        
+    </tbody>
+</table>
+<% } %>
+
+<% function teamCount(quantity) { %>
+    <table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Members</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    <% const numPer = Math.floor(memberArr.length / quantity); %>
+    <% const extra = memberArr.length % quantity; %>
+    <% let team = []; %>
+    <% for (let k = 1; k <= extra; k++) { %>
+        <tr>
+        <td><%= k %></td>
+        <% team = memberArr.slice(0, numPer + 1); %>
+        <td><%= team.join(','); %></td>
+        <% memberArr.splice(0, numPer + 1); %>
+        </tr>
+    <% } %>
+    <% for (let l = extra + 1; l <= quantity; l++) { %>
+        <tr>
+        <td><%= l %></td>
+        <% team = memberArr.slice(0, numPer); %>
+        <td><%= team.join(','); %></td>
+        <% memberArr.splice(0, numPer); %>
+        </tr>
+    <% } %> 
+</tbody>
+</table>  
+<% } %>
+
+
+<% const members = cohort.members %>
+<% const memberArr = members.split(','); %>
+<% for (let i = 0; i < memberArr.length; i++) { %>
+<% let random = Math.floor(Math.random() * memberArr.length); %>
+<% [memberArr[i], memberArr[random]] = [memberArr[random], memberArr[i]] %>
+<% } %>
+
+<% if (method === "teamCount") { %>
+<% teamCount(quantity); %>
+<% } else if (method === "perTeam") { %>
+<% perTeam(quantity); %>
+<% }; %>
+
+<%- include('./partials/footer') %>
