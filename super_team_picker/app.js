@@ -15,16 +15,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/', router);
 app.use(methodOverride((req, res) => {
   if (req.body && req.body._method) {
-    const method = req.body._method
-    delete req.body._method;
+    const method = req.body._method;
+     delete req.body._method;
     return method;
-    }
-  })
+  }
+})
 );
-
+app.use('/', router);
+// still its finding post, instead of PATCH
 const PORT = process.env.PORT || 3000;
 const DOMAIN = 'localhost'
 app.listen(PORT, DOMAIN, () => {

@@ -1,17 +1,18 @@
 <%- include('./partials/header') %>
 
-<h4>Edit Note</h4>
+<h4>Edit Cohort</h4>
 
-    <form method="POST" action="/cohorts">
-        
-            <div>
-                <input type="hidden" name="_method" value="PATCH">
-                <textarea name="logoUrl" id ="edit" cols=150 rows=1 required><%= cohort.logoUrl %></textarea>
-                <textarea name="name" id ="edit" cols=150 rows=1 required><%= cohort.name %></textarea>
-                <textarea name="edit" id ="edit" cols=150 rows=3 required><%= cohort.members %></textarea>
+    <form method="POST" action="/cohorts/<%= cohort.id %>"> 
+        <input type="hidden" name="_method" value="PATCH">
+            <div class="form-group">
+                <label for="logoUrl">Logo URL</label><br>
+                <textarea name="logoUrl" cols=125 rows=1 class="form-control" required><%= cohort.logoUrl %></textarea><br>
+                <label for="name">Name</label><br>
+                <textarea name="name" cols=125 rows=1 class="form-control" required><%= cohort.name %></textarea><br>
+                <label for="members">Members</label><br>
+                <textarea name="members" cols=125 rows=3 class="form-control" required><%= cohort.members %></textarea>
             </div>
-
-        <input type="submit" value="Update">
+            <input type="submit" class="btn btn-outline-primary" value="Update">
         
     </form>
 
