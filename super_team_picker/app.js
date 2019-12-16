@@ -24,7 +24,6 @@ app.use(methodOverride((req, res) => {
 })
 );
 app.use('/', router);
-// still its finding post, instead of PATCH
 const PORT = process.env.PORT || 3000;
 const DOMAIN = 'localhost'
 app.listen(PORT, DOMAIN, () => {

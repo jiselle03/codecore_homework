@@ -3,7 +3,7 @@ const router = express.Router();
 
 const queries = require("../db/queries");
 
-// Home where is edit ?
+// Home
 router.get("/", (req, res) => {
   res.render('home'); 
 });
