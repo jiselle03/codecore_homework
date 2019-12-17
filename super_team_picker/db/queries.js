@@ -15,7 +15,7 @@ module.exports = {
   add(cohort) {
     return knex("cohorts").insert(cohort, "*");
   },
-  // edit cohort, need to validate for undfined, may be name in control is different, or some speel mistake
+  // edit cohort
   edit(id, cohort) {
     console.log(id,":",cohort);
     return knex("cohorts")
