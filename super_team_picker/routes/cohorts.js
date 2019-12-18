@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-
+const utils = require("../utils");
 const queries = require("../db/queries");
 
 // Home
@@ -43,7 +43,7 @@ router.get("/cohorts/:id", (req, res) => {
   const quantity = req.query.quantity;
   const { id } = req.params;
   queries.getOne(id).then(cohort => {
-    res.render('show', { cohort, method, quantity });
+    res.render('show', { cohort, method, quantity, utils });
   });
 });
 

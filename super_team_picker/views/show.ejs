@@ -39,7 +39,15 @@
     </div>
 </div>
 
-<% function perTeam(quantity) { %>
+<% const members = cohort.members; %>
+<% const memberArr = members.split(','); %>
+<% const shuffled = utils.shuffle(memberArr); %>
+<% const extra = utils.extra(shuffled, quantity);%>
+<% const teamNums = utils.teamNums(shuffled, quantity); %>
+<% const numPer = utils.numPer(shuffled, quantity); %>
+<% let team = []; %>
+
+<% if (method === "perTeam") { %>
 <table class="table">
     <thead>
         <tr>
@@ -48,27 +56,24 @@
         </tr>
     </thead>
     <tbody>
-
-        <% const teamNums = Math.ceil(memberArr.length / quantity); %>
-        <% for (let j = 1; j <= teamNums; j++) { %>
+        
+        <% for (let i = 1; i <= teamNums; i++) { %>
         <tr>
-            <td><%= j %></td>
-            <% let team = []; %>
-            <% if (j === teamNums) { %>
-                <td><%= memberArr.join(','); %></td>
+            <td><%= i %></td>
+            <% if (i === teamNums) { %>
+                <td><%= shuffled.join(','); %></td>
             <% } else { %>
-                <% team = memberArr.slice(0, quantity); %>
+                <% team = shuffled.slice(0, quantity); %>
                 <td><%= team.join(','); %></td>
-                <% memberArr.splice(0, quantity); %>
+                <% shuffled.splice(0, quantity); %>
             <% } %>
         </tr>
         <% } %>
         
     </tbody>
 </table>
-<% } %>
 
-<% function teamCount(quantity) { %>
+<% } else if (method === "teamCount") { %>
     <table class="table">
     <thead>
         <tr>
@@ -76,43 +81,27 @@
             <th scope="col">Members</th>
         </tr>
     </thead>
-
     <tbody>
-    <% const numPer = Math.floor(memberArr.length / quantity); %>
-    <% const extra = memberArr.length % quantity; %>
-    <% let team = []; %>
-    <% for (let k = 1; k <= extra; k++) { %>
+
+    <% for (let j = 1; j <= extra; j++) { %>
         <tr>
-        <td><%= k %></td>
+        <td><%= j %></td>
         <% team = memberArr.slice(0, numPer + 1); %>
         <td><%= team.join(','); %></td>
-        <% memberArr.splice(0, numPer + 1); %>
+        <% shuffled.splice(0, numPer + 1); %>
         </tr>
     <% } %>
-    <% for (let l = extra + 1; l <= quantity; l++) { %>
+    <% for (let k = extra + 1; k <= quantity; k++) { %>
         <tr>
-        <td><%= l %></td>
-        <% team = memberArr.slice(0, numPer); %>
+        <td><%= k %></td>
+        <% team = shuffled.slice(0, numPer); %>
         <td><%= team.join(','); %></td>
-        <% memberArr.splice(0, numPer); %>
+        <% shuffled.splice(0, numPer); %>
         </tr>
     <% } %> 
 </tbody>
 </table>  
 <% } %>
 
-
-<% const members = cohort.members %>
-<% const memberArr = members.split(','); %>
-<% for (let i = 0; i < memberArr.length; i++) { %>
-<% let random = Math.floor(Math.random() * memberArr.length); %>
-<% [memberArr[i], memberArr[random]] = [memberArr[random], memberArr[i]] %>
-<% } %>
-
-<% if (method === "teamCount") { %>
-<% teamCount(quantity); %>
-<% } else if (method === "perTeam") { %>
-<% perTeam(quantity); %>
-<% }; %>
 
 <%- include('./partials/footer') %>
