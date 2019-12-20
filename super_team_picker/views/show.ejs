@@ -2,6 +2,7 @@
 
 <div class="card mb-3">
     <div class="card-body">
+        <!-- Showing cohort info and option to edit and delete -->
         <h4 class="card-title w-25"><%= cohort.name %></h4>
         <p class="card-text" id="members"><%= cohort.members %></p>
             <form action="/cohorts/<%= cohort.id %>" method="POST">
@@ -12,8 +13,9 @@
             <p>&nbsp;</p>
             <p>&nbsp;</p>
         <hr>
+        <!-- Options for assigning teams within the cohort -->
         <form>
-
+            
             <h5>Method</h5>
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="method" id="teamCount" value="teamCount">
@@ -39,6 +41,7 @@
     </div>
 </div>
 
+<!-- Accessing methods on utils.js -->
 <% const members = cohort.members; %>
 <% const memberArr = members.split(','); %>
 <% const shuffled = utils.shuffle(memberArr); %>
@@ -47,6 +50,7 @@
 <% const numPer = utils.numPer(shuffled, quantity); %>
 <% let team = []; %>
 
+<!-- If number of Number Per Team method is chosen -->
 <% if (method === "perTeam") { %>
 <table class="table">
     <thead>
@@ -73,6 +77,7 @@
     </tbody>
 </table>
 
+<!-- If Team Count method is chosen -->
 <% } else if (method === "teamCount") { %>
     <table class="table">
     <thead>
