@@ -41,14 +41,9 @@
     </div>
 </div>
 
-<!-- Accessing methods on utils.js -->
+
 <% const members = cohort.members; %>
 <% const memberArr = members.split(','); %>
-<% const shuffled = utils.shuffle(memberArr); %>
-<% const extra = utils.extra(shuffled, quantity);%>
-<% const teamNums = utils.teamNums(shuffled, quantity); %>
-<% const numPer = utils.numPer(shuffled, quantity); %>
-<% let team = []; %>
 
 <!-- If number of Number Per Team method is chosen -->
 <% if (method === "perTeam") { %>
@@ -60,18 +55,13 @@
         </tr>
     </thead>
     <tbody>
-        
-        <% for (let i = 1; i <= teamNums; i++) { %>
-        <tr>
-            <td><%= i %></td>
-            <% if (i === teamNums) { %>
-                <td><%= shuffled.join(','); %></td>
-            <% } else { %>
-                <% team = shuffled.slice(0, quantity); %>
-                <td><%= team.join(','); %></td>
-                <% shuffled.splice(0, quantity); %>
-            <% } %>
-        </tr>
+        <% let team = utils.perTeam(memberArr, quantity) %>
+        <% let numTeams = utils.numTeams(memberArr, quantity) %>
+        <% for (let i = 0; i < team.length; i++) { %>
+            <tr>
+                <td><%= i + 1 %></td>
+                <td><%= team[i] %></td>
+            </tr>
         <% } %>
         
     </tbody>
@@ -88,22 +78,14 @@
     </thead>
     <tbody>
 
-    <% for (let j = 1; j <= extra; j++) { %>
+    <% let team = utils.teamCount(memberArr, quantity) %>
+    <% for (let j = 0; j < team.length; j++) { %>
         <tr>
-        <td><%= j %></td>
-        <% team = memberArr.slice(0, numPer + 1); %>
-        <td><%= team.join(','); %></td>
-        <% shuffled.splice(0, numPer + 1); %>
+        <td><%= j + 1 %></td>
+        <td><%= team[j] %></td>
         </tr>
     <% } %>
-    <% for (let k = extra + 1; k <= quantity; k++) { %>
-        <tr>
-        <td><%= k %></td>
-        <% team = shuffled.slice(0, numPer); %>
-        <td><%= team.join(','); %></td>
-        <% shuffled.splice(0, numPer); %>
-        </tr>
-    <% } %> 
+
 </tbody>
 </table>  
 <% } %>
