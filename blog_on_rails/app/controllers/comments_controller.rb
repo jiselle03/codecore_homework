@@ -2,20 +2,25 @@ class CommentsController < ApplicationController
 
     def create
         @comment = Comment.new comment_params
+
         if @comment.save
             flash[:notice] = 'Comment added successfully'
-            @post = Post.find params[:id]
-            redirect_to post_path(@post.id)
+            redirect_to post_path(:post_id)
         else
-            render :new
+            redirect_to post_path(:post_id)
         end
     end
 
     def destroy
         @comment = Comment.find params[:id]
         @comment.destroy
-        @post = Post.find params[:id]
-        redirect_to post_path(@post.id)
+        redirect_to post_path(:post_id)
+    end
+
+    private
+
+    def comment_params
+        params.require(:comment).permit(:body, :post_id)
     end
     
 end

@@ -7,6 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 Post.destroy_all()
+Comment.destroy_all()
 
 100.times do
     Post.create(
@@ -17,4 +18,12 @@ Post.destroy_all()
     )
 end
 
-puts Cowsay.say("Generated #{Post.count} posts", :dragon)
+200.times do
+    Comment.create(
+        body: Faker::TvShows::Buffy.quote,
+        created_at: Faker::Date.backward(days:365 * 5),
+        post_id: Faker::Number.between(from: 1, to: 100)
+    )
+end
+
+puts Cowsay.say("Generated #{Post.count} posts and #{Comment.count} comments", :dragon)

@@ -2,25 +2,44 @@
 
 <h1><%= @post.title %></h1>
 <p><%= @post.body %></p>
-<p>Posted <%= time_ago_in_words(@post.created_at) %> ago</p>
-<p>Updated <%= time_ago_in_words(@post.updated_at) %> ago</p>
+<small>Posted <%= time_ago_in_words(@post.created_at) %> ago • Updated <%= time_ago_in_words(@post.updated_at) %> ago</small><br>
+<br>
 <button class="btn btn-outline-primary"><%= link_to("Edit", edit_post_path(@post.id)) %></button>
 <button class="btn btn-outline-primary"><%= link_to("Delete", post_path, method: :delete, data: {confirm: 'Are you sure?'}) %></button>
-
+<br><br>
 <%= form_with(model: @comment, local: true) do |form|%>
 
 <div>
-    <% if @comment.errors.present?%>
+    <% if @comment.errors.present? %>
     <%= @comment.errors.full_messages.join(', ')%>
     <% end %>
 </div>
 
 <div>
+    <%= form.hidden_field :post_id, value: "#{params[:post_id]}" %>
     <%= form.label :comment %><br>
     <%= form.text_area :comment, cols: 50, rows:5%><br>
-    <%= form.submit %>
+    <button class="btn btn-outline-primary"><%= link_to "Submit", post_path(@post.id) %></button>
 </div>
 
 <% end %>
+
+<br>
+
+<h4>Comments</h4>
+
+<% @comments.each do |comment| %>
+<% if comment.post_id == @post.id %>
+<div class="comment">
+<p><%= comment.body %></p>
+<small>Commented <%= time_ago_in_words(comment.created_at) %> ago • <%= link_to("Delete", post_path, method: :delete, data: {confirm: 'Are you sure?'}) %></small>
+</div>
+
+<br>
+
+<% end %>
+
+<% end %>
+
 
 </div>

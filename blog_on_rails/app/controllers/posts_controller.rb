@@ -34,7 +34,8 @@ class PostsController < ApplicationController
     end
 
     def show
-
+        @comments = Comment.all
+        @comment = Comment.new(post_id: params[:post_id])
     end
 
     def destroy
