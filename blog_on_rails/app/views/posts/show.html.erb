@@ -1,0 +1,12 @@
+<div class="container">
+
+<h1>Post</h1>
+<h1><%= @post.title %></h1>
+<p><%= @post.body %></p>
+<p>Posted <%= time_ago_in_words(@post.created_at) %> ago</p>
+<p>Updated <%= time_ago_in_words(@post.updated_at) %> ago</p>
+<%= link_to("Delete", post_path, method: :delete, data: {confirm: 'Are you sure?'}) %>
+<br>
+<%= link_to("Edit", edit_post_path(@post.id)) %>
+
+</div>

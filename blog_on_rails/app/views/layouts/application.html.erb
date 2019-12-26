@@ -10,6 +10,26 @@
   </head>
 
   <body>
+    <nav>
+
+      <ul class="nav justify-content-center m-3">
+        
+        <h4 class="nav-item">
+            <a class="navbar-brand d-flex w-50 mr-auto nav-link active" href="/">Blog on Rails</a>
+        </h4>
+        <li class="nav-item ml-auto justify-content-end">
+          <%= link_to 'Home', root_path %> &nbsp;
+        </li>
+        <li class="nav-item">
+          <%= link_to('All Posts', posts_path) %> &nbsp;
+        </li>
+        <li class="nav-item">
+          <%= link_to('New Post', new_post_path) %>
+        </li>
+      </ul>
+    </nav>
+    
+    <%= flash[:notice] || flash[:alert]%>
     <%= yield %>
   </body>
 </html>
