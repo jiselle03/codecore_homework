@@ -7,4 +7,20 @@
 <button class="btn btn-outline-primary"><%= link_to("Edit", edit_post_path(@post.id)) %></button>
 <button class="btn btn-outline-primary"><%= link_to("Delete", post_path, method: :delete, data: {confirm: 'Are you sure?'}) %></button>
 
+<%= form_with(model: @comment, local: true) do |form|%>
+
+<div>
+    <% if @comment.errors.present?%>
+    <%= @comment.errors.full_messages.join(', ')%>
+    <% end %>
+</div>
+
+<div>
+    <%= form.label :comment %><br>
+    <%= form.text_area :comment, cols: 50, rows:5%><br>
+    <%= form.submit %>
+</div>
+
+<% end %>
+
 </div>
