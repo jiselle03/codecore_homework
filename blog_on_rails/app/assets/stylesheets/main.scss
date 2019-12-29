@@ -2,6 +2,10 @@
   margin: 1.5em 0;
 }
 
+.nav-item {
+  margin: 0.5em;
+}
+
 @media (min-width: 768px) {
   .cards-container {
     display: flex;
@@ -12,6 +16,10 @@
 
   .card {
       width: 48%;
+  }
+
+  .nav-item {
+    margin: 0.5em 1.5em;
   }
 
 }
@@ -26,6 +34,10 @@
 
   .card {
       width: 30%;
+  }
+
+  .nav-item {
+    margin: 0.5em 1.5em;
   }
 
 }
