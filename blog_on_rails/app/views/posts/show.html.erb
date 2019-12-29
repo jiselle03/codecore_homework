@@ -16,20 +16,22 @@
 </div>
 
 <div>
-    <%= form.hidden_field :post_id, value: "#{params[:post_id]}" %>
-    <%= form.label :comment %><br>
-    <%= form.text_area :comment, cols: 50, rows:5%><br>
-    <button class="btn btn-outline-primary"><%= link_to "Submit", post_path(@post.id) %></button>
+    <%= form.hidden_field :post_id, value: @post.id %>
+    <%= form.label :body %><br>
+    <%= form.text_area :body, cols: 50, rows:5%><br>
+    <button type="button" class="btn btn-outline-primary"><%= link_to "Submit", post_path(@post.id) %></button>
 </div>
 
 <% end %>
 
 <br>
 
+
+<% if @comments.length > 0 %>
 <h4>Comments</h4>
 
 <% @comments.each do |comment| %>
-<% if comment.post_id == @post.id %>
+
 <div class="comment">
 <p><%= comment.body %></p>
 <small>Commented <%= time_ago_in_words(comment.created_at) %> ago • <%= link_to("Delete", post_path, method: :delete, data: {confirm: 'Are you sure?'}) %></small>

@@ -8,11 +8,19 @@ class PostsController < ApplicationController
 
     def create
         @post = Post.new post_params
-        if @post.save # perform validation and save if successful
+        if @post.save
             flash[:notice] = 'Post added successfully'
             redirect_to post_path(@post.id)
         else
             render :new
+        end
+
+        @comment = Comment.new comment_params
+        if @comment.save
+            flash[:notice] = 'Comment added successfully'
+            redirect_to post_path(:post_id)
+        else
+            redirect_to post_path(:post_id)
         end
     end
 
@@ -34,7 +42,7 @@ class PostsController < ApplicationController
     end
 
     def show
-        @comments = Comment.all
+        @comments = Comment.where("post_id = ?", params[:post_id]).reverse_order
         @comment = Comment.new(post_id: params[:post_id])
     end
 
@@ -48,7 +56,7 @@ class PostsController < ApplicationController
 
     def find_post
         @post = Post.find params[:id]
-    end
+end
     
     def post_params
         params.require(:post).permit(:title, :body)
