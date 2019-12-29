@@ -6,11 +6,11 @@
 </div>
 <div>
     <%= form.label :title%><br>
-    <%= form.text_field :title %>
+    <%= form.text_field :title, class: "col-md-6 control-label" %>
 </div>
 <div>
     <%= form.label :body %><br>
-    <%= form.text_area :body, cols: 50, rows:5%><br>
+    <%= form.text_area :body, class: "col-md-6 control-label"%><br>
     <%= form.submit %>
 </div>
 

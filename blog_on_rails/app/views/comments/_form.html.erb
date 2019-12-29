@@ -8,7 +8,7 @@
 
 <div>
     <h4><%= form.label :body, "Comment" %></h4>
-    <%= form.text_area :body, cols: 50, rows:5, placeholder: "What's on your mind?"%><br>
+    <%= form.text_area :body, class: "col-md-6 control-label", placeholder: "What's on your mind?"%><br>
     <%= form.submit "Submit", :class => "btn btn-outline-primary" %>
 </div>
 
