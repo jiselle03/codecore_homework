@@ -7,41 +7,19 @@
 <button class="btn btn-outline-primary"><%= link_to("Edit", edit_post_path(@post.id)) %></button>
 <button class="btn btn-outline-primary"><%= link_to("Delete", post_path, method: :delete, data: {confirm: 'Are you sure?'}) %></button>
 <br><br>
-<%= form_with(model: @comment, local: true) do |form|%>
 
-<div>
-    <% if @comment.errors.present? %>
-    <%= @comment.errors.full_messages.join(', ')%>
-    <% end %>
-</div>
-
-<div>
-    <%= form.hidden_field :post_id, value: @post.id %>
-    <%= form.label :body %><br>
-    <%= form.text_area :body, cols: 50, rows:5%><br>
-    <button type="button" class="btn btn-outline-primary"><%= link_to "Submit", post_path(@post.id) %></button>
-</div>
-
-<% end %>
+<%= render partial: 'comments/form' %>
 
 <br>
 
+<% if @post.comments.length > 0 %>
 
-<% if @comments.length > 0 %>
-<h4>Comments</h4>
+<h4>Comments (<%= @post.comments.length %>)</h4>
 
-<% @comments.each do |comment| %>
-
-<div class="comment">
-<p><%= comment.body %></p>
-<small>Commented <%= time_ago_in_words(comment.created_at) %> ago • <%= link_to("Delete", post_path, method: :delete, data: {confirm: 'Are you sure?'}) %></small>
-</div>
+<%= render partial: 'comment', collection: @post.comments.all.reverse %>
 
 <br>
 
 <% end %>
-
-<% end %>
-
 
 </div>

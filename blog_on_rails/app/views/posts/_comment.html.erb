@@ -1,0 +1,11 @@
+<div class="comments-container">
+
+<div class="comment">
+<p><%= comment.body %></p>
+<small>Commented <%= time_ago_in_words(comment.created_at) %> ago • <%= link_to 'Delete', comment_path(comment), method: :delete, data: { confirm: 'Are you sure?' } %></small>
+
+</div>
+
+<br>
+
+</div>

@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   get('/', { to: 'welcome#index', as: 'root' })
   
-  resources :posts, :comments
+  resources :posts do
+    resources :comments, shallow: true, only: [:create, :destroy]
+  end
 
 end

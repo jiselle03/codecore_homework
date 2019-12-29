@@ -14,14 +14,6 @@ class PostsController < ApplicationController
         else
             render :new
         end
-
-        @comment = Comment.new comment_params
-        if @comment.save
-            flash[:notice] = 'Comment added successfully'
-            redirect_to post_path(:post_id)
-        else
-            redirect_to post_path(:post_id)
-        end
     end
 
     def edit
@@ -42,8 +34,8 @@ class PostsController < ApplicationController
     end
 
     def show
-        @comments = Comment.where("post_id = ?", params[:post_id]).reverse_order
-        @comment = Comment.new(post_id: params[:post_id])
+        @comment = Comment.new
+        @comment.post_id = @post.id
     end
 
     def destroy
@@ -56,7 +48,7 @@ class PostsController < ApplicationController
 
     def find_post
         @post = Post.find params[:id]
-end
+    end
     
     def post_params
         params.require(:post).permit(:title, :body)
