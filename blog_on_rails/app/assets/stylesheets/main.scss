@@ -3,15 +3,29 @@
 }
 
 @media (min-width: 768px) {
-    .cards-container {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
-
-    .card {
-        width: 48%;
-    }
-
+  .cards-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
   }
+
+  .card {
+      width: 48%;
+  }
+
+}
+
+@media (min-width: 960px) {
+  .cards-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+
+  .card {
+      width: 30%;
+  }
+
+}
