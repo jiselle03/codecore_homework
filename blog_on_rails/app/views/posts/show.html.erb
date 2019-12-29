@@ -4,8 +4,8 @@
 <p><%= @post.body %></p>
 <small>Posted <%= time_ago_in_words(@post.created_at) %> ago • Updated <%= time_ago_in_words(@post.updated_at) %> ago</small><br>
 <br>
-<button class="btn btn-outline-primary"><%= link_to("Edit", edit_post_path(@post.id)) %></button>
-<button class="btn btn-outline-primary"><%= link_to("Delete", post_path, method: :delete, data: {confirm: 'Are you sure?'}) %></button>
+<%= link_to("Edit", edit_post_path(@post.id), :class => "btn btn-outline-primary") %>
+<%= link_to("Delete", post_path, :class => "btn btn-outline-primary", method: :delete, data: {confirm: 'Are you sure?'}) %></button>
 <br><br>
 
 <%= render partial: 'comments/form' %>
