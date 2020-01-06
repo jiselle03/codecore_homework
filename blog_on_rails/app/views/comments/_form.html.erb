@@ -1,4 +1,4 @@
-<%= form_with(model: @comment, url: [@post, @comment], local: true) do |form|%>
+<%= form_with(model: [@post, @comment], local: true) do |form|%>
 
 <div>
     <% if @comment.errors.present? %>

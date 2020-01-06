@@ -15,7 +15,7 @@
   }
 
   .card {
-      width: 48%;
+    width: 48%;
   }
 
   .nav-item {
@@ -28,12 +28,12 @@
   .cards-container {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     flex-wrap: wrap;
   }
 
   .card {
-      width: 30%;
+    width: 30%;
   }
 
   .nav-item {

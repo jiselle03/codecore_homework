@@ -30,12 +30,12 @@ class PostsController < ApplicationController
     end
 
     def index
-        @posts = Post.all
+        @posts = Post.order(created_at: :desc)
     end
 
     def show
         @comment = Comment.new
-        @comment.post_id = @post.id
+        @comments = @post.comments.order(created_at: :desc)
     end
 
     def destroy

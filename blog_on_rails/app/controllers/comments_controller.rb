@@ -7,6 +7,9 @@ class CommentsController < ApplicationController
         if @comment.save
             flash[:notice] = 'Comment added successfully'
             redirect_to post_path(@comment.post_id)
+        else
+            @comments = @post.comments.order(created_at: :desc)
+            render 'posts/show'
         end
     end
 
@@ -19,7 +22,7 @@ class CommentsController < ApplicationController
     private
 
     def comment_params
-        params.require(:comment).permit(:body, :post_id)
+        params.require(:comment).permit(:body)
     end
 
 end
