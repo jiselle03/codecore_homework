@@ -10,20 +10,20 @@ Post.destroy_all()
 Comment.destroy_all()
 
 100.times do
-    Post.create(
+    p = Post.create(
         title: Faker::TvShows::Buffy.episode,
-        body: Faker::Lorem.paragraph,
+        body: Faker::Lorem.paragraph(sentence_count: 5, supplemental: true, random_sentences_to_add: 4),
         created_at: Faker::Date.backward(days:365 * 5),
         updated_at: Faker::Date.backward(days:365 * 5)
     )
-end
-
-200.times do
-    Comment.create(
-        body: Faker::TvShows::Buffy.quote,
-        created_at: Faker::Date.backward(days:365 * 5),
-        post_id: Faker::Number.between(from: 1, to: 100)
-    )
+    if p.valid?
+        p.comments = rand(0..10).times.map do
+            Comment.new(
+                body: Faker::TvShows::Buffy.quote, 
+                created_at: Faker::Date.backward(days:365 * 5),
+            )
+        end
+    end
 end
 
 puts Cowsay.say("Generated #{Post.count} posts and #{Comment.count} comments", :dragon)
