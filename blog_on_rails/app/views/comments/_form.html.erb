@@ -7,9 +7,13 @@
 </div>
 
 <div>
-    <h4><%= form.label :body, "Comment" %></h4>
-    <%= form.text_area :body, class: "col-md-6 control-label", placeholder: "What's on your mind?"%><br>
-    <%= form.submit "Submit", :class => "btn btn-outline-primary" %>
+    <h5><%= form.label :body, "Comment" %></h5>
+    <%= form.text_area :body, class: "col-md-6 form-control", placeholder:  
+    current_user ? "What's on your mind?" : "Please sign in to post a comment.",
+    current_user ? "" : :disabled => true  %>
+    <br>
+    <%= form.submit "Submit", :class => "btn btn-outline-primary",
+    current_user ? "" : :disabled => true %>
 </div>
 
 <% end %>

@@ -10,22 +10,36 @@
   </head>
 
   <body>
-    <nav>
+    <nav class="navbar-light bg-light">
 
-      <ul class="nav justify-content-center bg-light">
+      <a class="navbar-brand" href="/">Blog on Rails</a>
+
+      <ul class="navbar-nav justify-content-end">
+        <li class="nav-item m-1 <%= current_class?(root_path) %>">
+          <%= link_to "Home", root_path, class: "nav-link" %>
+          <% if current_page?(root_path) %><span class="sr-only">(current)</span><%end%>
+        </li>
+        <li class="nav-item m-1 <%= current_class?(posts_path) %>">
+          <%= link_to('All Posts', posts_path, class: "nav-link") %>
+          <% if current_page?(posts_path) %><span class="sr-only">(current)</span><%end%>
+        </li>
+        <li class="nav-item m-1 <%= current_class?(new_post_path) %>">
+          <%= link_to('New Post', new_post_path, class: "nav-link") %>
+          <% if current_page?(new_post_path) %><span class="sr-only">(current)</span><%end%>
+        </li>
         
-        <h4>
-            <a class="navbar-brand d-flex w-50 mr-auto nav-link active" href="/">Blog on Rails</a>
-        </h4>
-        <li class="nav-item ml-auto justify-content-end">
-          <%= link_to 'Home', root_path %> &nbsp;
-        </li>
-        <li class="nav-item">
-          <%= link_to('All Posts', posts_path) %> &nbsp;
-        </li>
-        <li class="nav-item">
-          <%= link_to('New Post', new_post_path) %>
-        </li>
+        <% if user_signed_in? %>
+          <li class="nav-item m-1"> <%= link_to current_user.name, edit_user_path(current_user.id), class: "nav-link" %> </li>
+          <li class="nav-item m-1"> <%= link_to "Log Out", session_path, method: :delete, data: { confirm: "Are you sure you want to log out?" }, class: "nav-link" %> </li>
+        <% else %>
+          <li class="nav-item m-1 <%= current_class?(new_session_path) %>"> <%= link_to "Log In", new_session_path, class: "nav-link" %>
+          <% if current_page?(new_session_path) %><span class="sr-only">(current)</span><%end%>
+          </li>
+          <li class="nav-item m-1 <%= current_class?(new_user_path) %>"><%= link_to "Sign Up", new_user_path, class: "nav-link" %>
+          <% if current_page?(new_user_path) %><span class="sr-only">(current)</span><%end%>
+          </li>
+        <% end %>
+
       </ul>
     </nav>
     
