@@ -4,10 +4,13 @@ class PostsController < ApplicationController
 
     def new
         @post = Post.new
+        @post.user = current_user
+        redirect_to new_session_path if !current_user
     end
 
     def create
         @post = Post.new post_params
+        @post.user = current_user
         if @post.save
             flash[:notice] = 'Post added successfully'
             redirect_to post_path(@post.id)
