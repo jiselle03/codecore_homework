@@ -11,9 +11,11 @@ class Ability
     if user.is_admin?
       can :manage, :all
     end
-    
+
+    can :update, User, :user_id => user.id
+
     can(:crud, Post) do |post|
-      post.user == user 
+      post.user == user
     end
 
     can(:crud, Comment) do |comment|

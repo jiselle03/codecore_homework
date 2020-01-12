@@ -1,6 +1,8 @@
 class PostsController < ApplicationController
 
+    before_action :authenticate_user!, except: [:index, :show]
     before_action :find_post, only: [:edit,:update,:show, :destroy]
+    before_action :authorize!, only: [:edit, :update, :destroy]
 
     def new
         @post = Post.new
@@ -20,7 +22,7 @@ class PostsController < ApplicationController
     end
 
     def edit
-        
+        redirect_to root_path if @user != current_user
     end
 
     def update
@@ -55,6 +57,12 @@ class PostsController < ApplicationController
     
     def post_params
         params.require(:post).permit(:title, :body)
+    end
+
+    def authorize!
+        unless can?(:crud, @post)
+            redirect_to root_path, alert: 'Not Authorized'
+        end
     end
 
 end

@@ -13,8 +13,8 @@ User.destroy_all()
 PASSWORD = "supersecret"  
 
 super_user = User.create( 
-    name: "Arya Stark", 
-    email: "noone@winterfell.gov", 
+    name: "Hermione Granger", 
+    email: "hermionegranger@hogwarts.edu", 
     password: PASSWORD,
     is_admin: true
 ) 
@@ -46,7 +46,7 @@ puts "Login with #{super_user.email} and password of '#{PASSWORD}'"
         p.comments = rand(0..10).times.map do
             user = users.sample 
             Comment.new(
-                body: Faker::TvShows::Buffy.quote, 
+                body: Faker::Movies::HarryPotter.quote, 
                 created_at: Faker::Date.backward(days:365 * 5),
                 user_id: user.id
             )
