@@ -12,7 +12,7 @@ class Ability
       can :manage, :all
     end
 
-    can :update, User, :user_id => user.id
+    can :crud, User, :id => user.id
 
     can(:crud, Post) do |post|
       post.user == user

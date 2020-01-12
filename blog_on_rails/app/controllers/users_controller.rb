@@ -31,7 +31,7 @@ class UsersController < ApplicationController
     end
 
     def edit_password
-        render :edit_password
+        
     end
 
     def update_password
