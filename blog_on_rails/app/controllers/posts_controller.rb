@@ -33,7 +33,7 @@ class PostsController < ApplicationController
     end
 
     def index
-        @posts = Post.order(created_at: :desc)
+        redirect_to root_path
     end
 
     def show
@@ -43,7 +43,7 @@ class PostsController < ApplicationController
 
     def destroy
         @post.destroy
-        redirect_to posts_path
+        redirect_to root_path
     end
 
 
