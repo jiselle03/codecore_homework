@@ -1,11 +1,9 @@
 class UsersController < ApplicationController
-    
-    attr_accessor :old_password, :new_password, :new_password_confirmation
 
-    before_action :find_user, only: [:edit, :update, :edit_password, :update_password, :verify_password]
+
+    before_action :find_user, only: [:edit, :update, :edit_password, :update_password]
     before_action :authenticate_user!, except: [:index, :show]
     before_action :authorize!, only: [:edit, :update, :destroy]
-    before_action :verify_password, only: [:update_password]
 
     def new
         @user = User.new
@@ -33,38 +31,42 @@ class UsersController < ApplicationController
         end
     end
 
-    def edit_password
+    def password
+        @password ||= Password.new(password_hash)
     end
     
-    def update_password
-        if @user.update user_params
-            flash[:notice] = 'Password updated successfully'
-            redirect_to edit_user_path
-        else
-            render :edit_password
-        end
+    def password=(new_password)
+        @password = Password.create(new_password)
+        self.password_hash = @password
     end
 
-    #getter
-    def old_password
-        @old_password
+
+    def edit_password
     end
-    def new_password
-        @new_password
-    end
-    def new_password_confirmation
-        @new_password_confirmation
-    end
-    
-    #setter
-    def old_password=(value)
-        @old_password = value
-    end
-    def new_password=(value)
-        @new_password = value
-    end
-    def new_password_confirmation=(value)
-        @new_password_confirmation = value
+
+    def update_password
+        if @user&.authenticate params[:user][:current_password]
+            new_password = params[:user][:new_password]
+            new_password_confirmation = params[:user][:new_password_confirmation]
+            password_not_match = new_password != params[:user][:current_password]
+            password_confirmed = new_password == new_password_confirmation
+
+            if password_not_match && password_confirmed
+                if @user.update password: new_password, password_confirmation: new_password_confirmation
+                    flash[:notice] = "Password changed successfully."
+                    redirect_to root_path
+                else 
+                    flash[:alert] = "Password update failed."
+                    render :edit_password
+                end
+            else
+                flash[:alert] = "New password confirmation does not match."
+                render :edit_password
+            end
+        else
+            flash[:alert] = "Your current password does not match our records."
+            render :edit_password
+        end
     end
 
     private
@@ -80,19 +82,6 @@ class UsersController < ApplicationController
     def authorize!
         unless can?(:crud, @user)
             redirect_to root_path, alert: 'Not Authorized'
-        end
-    end
-
-    def verify_password
-        if @old_password != @user.password
-            flash[:alert] = 'Please type the correct password.'
-            render :edit_password
-        elsif @new_password != @new_password_confirmation
-            flash[:alert] = 'Passwords do not match.'
-            render :edit_password
-        else
-            @user.password = @new_password 
-            @user.password_confirmation = @new_password_confirmation
         end
     end
 

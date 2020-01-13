@@ -19,7 +19,6 @@ class ApplicationController < ActionController::Base
             flash[:danger] = "You must sign in or sign up first."
             redirect_to new_session_path
         end
-        
     end
 
 end
