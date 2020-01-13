@@ -22,7 +22,6 @@ class PostsController < ApplicationController
     end
 
     def edit
-        redirect_to root_path if @user != current_user
     end
 
     def update
