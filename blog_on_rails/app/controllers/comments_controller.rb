@@ -10,12 +10,14 @@ class CommentsController < ApplicationController
         @comment.post_id = params[:post_id]
         @comment.user = current_user
 
-        if @comment.save
-            flash[:notice] = 'Comment added successfully'
-            redirect_to post_path(@comment.post_id)
-        else
-            @comments = @post.comments.order(created_at: :desc)
-            render 'posts/show'
+        if can? :create, @comment
+            if @comment.save
+                flash[:notice] = 'Comment added successfully'
+                redirect_to post_path(@comment.post_id)
+            else
+                @comments = @post.comments.order(created_at: :desc)
+                render 'posts/show'
+            end
         end
     end
 
