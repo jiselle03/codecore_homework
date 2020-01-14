@@ -1,7 +1,7 @@
 <main class="container">
 <div class="box">
 <br>
-<h3 class="h3 mb-3 font-weight-normal">Please Sign In</h3>
+<h3 class="h3 mb-3 font-weight-normal">Sign In</h3>
 <%= form_with url: session_path, local: true do |f| %>
 
     <div class="form-row">
@@ -24,6 +24,11 @@
 
 <% end %>
 
-<br>
+<hr>
+
+<p class="alt-option">
+Don't have an account? <%= link_to("Sign up here", new_user_path) %>.
+</p>
+
 </div>
 </main>

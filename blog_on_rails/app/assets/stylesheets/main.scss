@@ -31,6 +31,15 @@
   flex-direction:row;
 }
 
+.alt-option {
+  text-align: center;
+}
+
+.label {
+  font-weight: 500;
+  font-size: 0.75em;
+}
+
 @media (min-width: 768px) {
   .cards-container {
     display: flex;
@@ -72,7 +81,7 @@
   }
 
   .box {
-    margin: 2em 16em;
+    margin: 2em 10em;
   }
 
 }
