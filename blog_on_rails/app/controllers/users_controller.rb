@@ -36,10 +36,10 @@ class UsersController < ApplicationController
         if @user&.authenticate params[:user][:current_password]
             new_password = params[:user][:new_password]
             new_password_confirmation = params[:user][:new_password_confirmation]
-            password_not_match = new_password != params[:user][:current_password]
+            new_password_different = new_password != params[:user][:current_password]
             password_confirmed = new_password == new_password_confirmation
 
-            if password_not_match && password_confirmed
+            if new_password_different && password_confirmed
                 if @user.update password: new_password, password_confirmation: new_password_confirmation
                     flash[:notice] = "Password changed successfully."
                     redirect_to root_path
