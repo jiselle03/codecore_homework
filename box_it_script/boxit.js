@@ -21,15 +21,23 @@ function drawBarsAround(str, num) {
 };
 
 function boxIt(arr) {
+    let longest = arr[0];
     let result = '';
-    const longest = arr.sort(function(a, b) { return b.length - a.length })[0];
-    const num = longest.length;
 
+    for (let str of arr) {
+        if (str.length > longest.length) {
+            longest = str
+        }
+    }
+    const num = longest.length;
+    
     for (let i = 0; i < arr.length; i++) {
-        if (i === 0) {
-            result += `${drawTopBorder(num)}\n${drawBarsAround(arr[i])}\n${drawMiddleBorder(num)}\n`;
+        if (arr.length === 1) {
+            result += `${drawTopBorder(num)}\n${drawBarsAround(arr[i], num)}\n${drawBottomBorder(num)}`;
+        } else if (i === 0) {
+            result += `${drawTopBorder(num)}\n${drawBarsAround(arr[i], num)}\n`;
         } else if (i > 0 && i < arr.length - 1) {
-            result += `${drawBarsAround(arr[i], num)}\n${drawMiddleBorder(num)}\n`;
+            result += `${drawMiddleBorder(num)}\n${drawBarsAround(arr[i], num)}\n${drawMiddleBorder(num)}\n`;
         } else {
             result += `${drawBarsAround(arr[i], num)}\n${drawBottomBorder(num)}`;
         }
@@ -37,6 +45,5 @@ function boxIt(arr) {
     return result;
 };
 
-const arr = ['Jon Snow', 'Cersei Lannister', 'Daenerys Targaryen'];
-
-console.log(boxIt(arr));
+console.log(boxIt(['Jon Snow']));
+console.log(boxIt(['Jon Snow', 'Cersei Lannister', 'Daenerys Targaryen']));
