@@ -35,11 +35,12 @@ puts "Login with #{super_user.email} and password of '#{PASSWORD}'"
 
 250.times do
     user = users.sample 
+    past_date = Faker::Date.backward(days:365 * 5)
     p = Post.create(
         title: Faker::TvShows::Buffy.episode,
         body: Faker::Lorem.paragraph(sentence_count: 5, supplemental: true, random_sentences_to_add: 4),
-        created_at: Faker::Date.backward(days:365 * 5),
-        updated_at: Faker::Date.backward(days:365 * 5),
+        created_at: past_date,
+        updated_at: past_date,
         user_id: user.id
     )
     if p.valid?
