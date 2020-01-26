@@ -31,9 +31,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     letters.forEach(letter => {
         letter.addEventListener("click", event => {
-            document.querySelectorAll(".letter").forEach(letter => {
-                letter.classList.remove("selected");
-            });
             event.currentTarget.classList.add("selected");
 
             if (firstName.includes(letter.innerText) || lastName.includes(letter.innerText)) {
@@ -53,16 +50,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 });
                 checkWin();
             } else {
-                if (wrongGuesses.includes(letter.innerText)) {
-                    alert("You've already selected that letter!");
+                wrongGuesses.push(letter.innerText);
+                if (wrongGuesses.length === 6) {
+                    document.querySelector("img").outerHTML = `<img src="./assets/gallows${wrongGuesses.length}.jpg"></img>`;
+                    alert("Sorry! Better luck next time...");
                 } else {
-                    wrongGuesses.push(letter.innerText);
-                    if (wrongGuesses.length === 6) {
-                        document.querySelector("img").outerHTML = `<img src="./assets/gallows${wrongGuesses.length}.jpg"></img>`;
-                        alert("Sorry! Better luck next time...");
-                    } else {
-                        document.querySelector("img").outerHTML = `<img src="./assets/gallows${wrongGuesses.length}.jpg"></img>`;
-                    };
+                    document.querySelector("img").outerHTML = `<img src="./assets/gallows${wrongGuesses.length}.jpg"></img>`;
                 };
             };
         });
