@@ -1,0 +1,1 @@
+const letters = document.querySelectorAll(".letter")
