@@ -49,7 +49,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
             wrongGuesses.push(answer);
             if (wrongGuesses.length === 6) {
                 document.querySelector("img").outerHTML = `<img src="./assets/gallows${wrongGuesses.length}.jpg"></img>`;
-                alert("Sorry! Better luck next time...");
+                setTimeout(function(){ 
+                    alert("Sorry! Better luck next time..."); 
+                }, 0);
             } else {
                 document.querySelector("img").outerHTML = `<img src="./assets/gallows${wrongGuesses.length}.jpg"></img>`;
             };
