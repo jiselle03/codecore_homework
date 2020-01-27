@@ -11,15 +11,27 @@ html * {
 }
 
 main {
-    margin: 5em;
+    background-image: url("./assets/hogwarts.png");
+    background-repeat: no-repeat;
+    background-position-x: 100%;
+    background-position-y: 7.5%;
+    background-attachment: fixed;
+    background-size: 100px;
 }
 
 .title {
     font-weight: 800;
+    margin: 1em 1.75em;
+    width: 50vw;
+}
+
+h3 {
+    margin: 1em 3em;
 }
 
 img {
     width: 300px;
+    margin: 1em 3em;
 }
 
 .buttons-container {
@@ -28,6 +40,7 @@ img {
     grid-gap: 0.3rem 0.1em;
     width: 50vw;
     align-content: center;
+    margin: 1em 3em;
 }
 
 button {
@@ -47,6 +60,7 @@ button {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    margin: 1em 3em;
 }
 
 .letter-space {
@@ -74,5 +88,19 @@ button {
 
     .letter-space {
         width: 5%;
+    }
+
+    main {
+        background-position-x: 85%;
+        background-position-y: 30%;
+        background-size: 300px;
+    }
+}
+
+@media (min-width: 1024px) {
+    main {
+        background-position-x: 100%;
+        background-position-y: 50%;
+        background-size: 450px;
     }
 }
