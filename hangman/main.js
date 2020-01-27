@@ -1,16 +1,32 @@
-const letters = document.querySelectorAll(".letter");
-const names = ["HANNAH ABBOTT", "KATIE BELL", "SUSAN BONES", "TERRY BOOT", "CHO CHANG", "PENELOPE CLEARWATER", "MICHAEL CORNER", "COLIN CREEVEY", "VINCENT CRABBE", "DENNIS CREEVEY", "ROGER DAVIES", "TRACEY DAVIS", "CEDRIC DIGGORY", "SEAMUS FINNEGAN", "MARCUS FLINT", "GREGORY GOYLE", "HERMIONE GRANGER", "DAPHNE GREENGRASS", "ANGELINA JOHNSON", "LEE JORDAN", "NEVILLE LONGBOTTOM", "LUNA LOVEGOOD", "ERNIE MACMILLAN", "DRACO MALFOY", "PANSY PARKINSON", "PADMA PATIL", "PARVATI PATIL", "HARRY POTTER", "ZACHARIAS SMITH", "ALICIA SPINNET", "DEAN THOMAS", "LISA TURPIN", "FRED WEASLEY", "GEORGE WEASLEY", "GINNY WEASLEY", "PERCY WEASLEY", "RONALD WEASLEY", "OLIVER WOOD", "BLAISE ZABINI"]
-const hangman = document.querySelectorAll(".hangman");
-const guessFirst = document.querySelector(".guess-first");
-const guessLast = document.querySelector(".guess-last");
-const reset = document.querySelector(".reset");
-
 document.addEventListener("DOMContentLoaded", function(event) { 
+    const letters = document.querySelectorAll(".letter");
+    const names = ["HANNAH ABBOTT", "KATIE BELL", "LAVENDER BROWN", "SUSAN BONES", "TERRY BOOT", "MANDY BROCKLEHURST", "MILLICENT BULSTRODE", "CHO CHANG", "PENELOPE CLEARWATER", "MICHAEL CORNER", "COLIN CREEVEY", "VINCENT CRABBE", "DENNIS CREEVEY", "ROGER DAVIES", "TRACEY DAVIS", "CEDRIC DIGGORY", "MARIETTA EDGECOMBE", "SEAMUS FINNEGAN", "MARCUS FLINT", "GREGORY GOYLE", "HERMIONE GRANGER", "DAPHNE GREENGRASS", "ANGELINA JOHNSON", "LEE JORDAN", "NEVILLE LONGBOTTOM", "LUNA LOVEGOOD", "ERNIE MACMILLAN", "DRACO MALFOY", "PANSY PARKINSON", "PADMA PATIL", "PARVATI PATIL", "HARRY POTTER", "ZACHARIAS SMITH", "ALICIA SPINNET", "DEAN THOMAS", "LISA TURPIN", "FRED WEASLEY", "GEORGE WEASLEY", "GINNY WEASLEY", "PERCY WEASLEY", "RONALD WEASLEY", "OLIVER WOOD", "BLAISE ZABINI"]
+    const guessFirst = document.querySelector(".guess-first");
+    const guessLast = document.querySelector(".guess-last");
+    const reset = document.querySelector(".reset");
     const wrongGuesses = [];
     const name = names[Math.ceil(Math.random() * names.length -1)];
     const fullName = name.split(" ");
     const firstName = fullName[0].split("");
     const lastName = fullName[1].split("");
+
+    firstName.forEach(l => {
+        guessFirst.innerHTML += `<div class="letter-space"><small class="letter-guess" style="visibility: hidden;" name="${l}-guess">${l}</small></div>&nbsp;`
+    });
+    lastName.forEach(l => {
+        guessLast.innerHTML += `<div class="letter-space"><small class="letter-guess" style="visibility: hidden;" name="${l}-guess">${l}</small></div>&nbsp;`
+    });
+
+    letters.forEach(letter => {
+        letter.addEventListener("click", event => {
+            event.currentTarget.classList.add("selected");
+            checkAnswer(event.currentTarget.innerText);
+        });
+    });
+
+    reset.addEventListener("click", event => {
+        location.reload();
+    });
 
     function checkAnswer(answer) {
         if (firstName.includes(answer) || lastName.includes(answer)) {
@@ -49,29 +65,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
             }
         });
         if (count === 0) {
-            alert("Congratulations! You win!");
-            location.reload();
+            setTimeout(function(){ 
+                alert("Congratulations! You win!"); 
+                location.reload();
+            }, 0);
         };
     };
-    
-
-    firstName.forEach(l => {
-        guessFirst.innerHTML += `<div class="letter-space"><small class="letter-guess" style="visibility: hidden;" name="${l}-guess">${l}</small></div>&nbsp;`
-    });
-    lastName.forEach(l => {
-        guessLast.innerHTML += `<div class="letter-space"><small class="letter-guess" style="visibility: hidden;" name="${l}-guess">${l}</small></div>&nbsp;`
-    });
-
-    letters.forEach(letter => {
-        letter.addEventListener("click", event => {
-            event.currentTarget.classList.add("selected");
-            checkAnswer(event.currentTarget.innerText);
-        });
-    });
-
-    reset.addEventListener("click", event => {
-        location.reload();
-    })
 
     document.addEventListener("keydown", event => {
         const { keyCode } = event;
