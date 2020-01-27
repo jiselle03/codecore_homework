@@ -5,23 +5,56 @@ const guessFirst = document.querySelector(".guess-first");
 const guessLast = document.querySelector(".guess-last");
 const reset = document.querySelector(".reset");
 
-function checkWin() {
-    const answers = document.querySelectorAll(".letter-guess");
-    let count = 0;
-    answers.forEach(answer => {
-        if (answer.style.visibility === "hidden") {
-            count += 1;
-        }
-    });
-    if (count === 0) alert("Congratulations! You win!");
-};
-
 document.addEventListener("DOMContentLoaded", function(event) { 
     const wrongGuesses = [];
     const name = names[Math.ceil(Math.random() * names.length -1)];
     const fullName = name.split(" ");
     const firstName = fullName[0].split("");
     const lastName = fullName[1].split("");
+
+    function checkAnswer(answer) {
+        if (firstName.includes(answer) || lastName.includes(answer)) {
+            firstName.forEach(l => {
+                if (answer === l) {
+                    document.querySelectorAll(`small[name="${l}-guess"]`).forEach(occurrence => {
+                        occurrence.style.visibility = "visible";
+                    });
+                };
+            });
+            lastName.forEach(l => {
+                if (answer === l) {
+                    document.querySelectorAll(`small[name="${l}-guess"]`).forEach(occurrence => {
+                        occurrence.style.visibility = "visible";
+                    });
+                };
+            });
+            checkWin();
+        } else {
+            wrongGuesses.push(answer);
+            if (wrongGuesses.length === 6) {
+                document.querySelector("img").outerHTML = `<img src="./assets/gallows${wrongGuesses.length}.jpg"></img>`;
+                alert("Sorry! Better luck next time...");
+            } else {
+                document.querySelector("img").outerHTML = `<img src="./assets/gallows${wrongGuesses.length}.jpg"></img>`;
+            };
+        };
+    };
+
+    function checkWin() {
+        const answers = document.querySelectorAll(".letter-guess");
+        let count = 0;
+        answers.forEach(answer => {
+            if (answer.style.visibility === "hidden") {
+                count += 1;
+            }
+        });
+        if (count === 0) {
+            alert("Congratulations! You win!");
+            location.reload();
+        };
+    };
+    
+
     firstName.forEach(l => {
         guessFirst.innerHTML += `<div class="letter-space"><small class="letter-guess" style="visibility: hidden;" name="${l}-guess">${l}</small></div>&nbsp;`
     });
@@ -32,32 +65,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     letters.forEach(letter => {
         letter.addEventListener("click", event => {
             event.currentTarget.classList.add("selected");
-
-            if (firstName.includes(letter.innerText) || lastName.includes(letter.innerText)) {
-                firstName.forEach(l => {
-                    if (letter.innerText === l) {
-                        document.querySelectorAll(`small[name="${l}-guess"]`).forEach(occurrence => {
-                            occurrence.style.visibility = "visible";
-                        });
-                    };
-                });
-                lastName.forEach(l => {
-                    if (letter.innerText === l) {
-                        document.querySelectorAll(`small[name="${l}-guess"]`).forEach(occurrence => {
-                            occurrence.style.visibility = "visible";
-                        });
-                    };
-                });
-                checkWin();
-            } else {
-                wrongGuesses.push(letter.innerText);
-                if (wrongGuesses.length === 6) {
-                    document.querySelector("img").outerHTML = `<img src="./assets/gallows${wrongGuesses.length}.jpg"></img>`;
-                    alert("Sorry! Better luck next time...");
-                } else {
-                    document.querySelector("img").outerHTML = `<img src="./assets/gallows${wrongGuesses.length}.jpg"></img>`;
-                };
-            };
+            checkAnswer(event.currentTarget.innerText);
         });
     });
 
@@ -65,6 +73,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
         location.reload();
     })
 
-
+    document.addEventListener("keydown", event => {
+        const { keyCode } = event;
+        const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+        for (let i = 65; i <= 90; i++) {
+            if (keyCode === i) {
+                for (let j = 0; j < 26; j++) {
+                    if (j === keyCode - 65) {
+                        checkAnswer(LETTERS[j]);
+                        document.querySelector(`#${LETTERS[j]}`).classList.add("selected");
+                    };
+                };
+            };
+        };
+    });
 });
 
