@@ -10,23 +10,24 @@ html * {
     font-family: inherit;
 }
 
-main {
+.container {
     background-image: url("./assets/hogwarts.png");
     background-repeat: no-repeat;
     background-position-x: 100%;
-    background-position-y: 7.5%;
+    background-position-y: 3%;
     background-attachment: fixed;
     background-size: 100px;
+    text-align: center;
 }
 
 .title {
     font-weight: 800;
-    margin: 1em 1.75em;
-    width: 50vw;
+    font-size: 1em;
+    text-align: center;
 }
 
 h3 {
-    margin: 1em 3em;
+    font-size: 0.85em;
 }
 
 .reset {
@@ -34,23 +35,25 @@ h3 {
 }
 
 img {
-    width: 300px;
-    margin: 1em 3em;
+    width: 200px;
+    margin: 1em 4em;
 }
 
 .buttons-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(9, 1fr);
     grid-gap: 0.3rem 0.1em;
-    width: 50vw;
     align-content: center;
     margin: 1em 3em;
+    border-radius: 5px;
+    border: 1px solid black;
+    padding: 1em;
 }
 
 button {
     border-radius: 5px;
     width: 1.5em;
-    font-size: 2em;
+    font-size: 1em;
     border: 1px solid lightgrey;
     box-shadow: 3px 3px #888888;
 }
@@ -64,17 +67,18 @@ button {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin: 1em 3em;
+    margin: 1em 8em;
+    justify-content: center;
 }
 
 .letter-space {
     border-bottom: 3px solid black;
-    width: 10%;
+    width: 5%;
     text-align: center;
 }
 
 .letter-guess {
-    font-size: 2em;  
+    font-size: 1em;  
 }
 
 .selected {
@@ -85,26 +89,58 @@ button {
 
 @media (min-width: 768px) {
     .buttons-container {
-        display: grid;
-        grid-template-columns: repeat(9, 1fr);
-        width: 50vw;
+        margin: 1em 10em;
+        padding: 2em;
+    }
+
+    button {
+        margin: 0.1em;
+        font-size: 1.75em;
+    }
+
+    .guess-first, .guess-last {
+        margin: 1em 10em;
     }
 
     .letter-space {
         width: 5%;
     }
 
-    main {
-        background-position-x: 85%;
-        background-position-y: 30%;
-        background-size: 300px;
+    .container {
+        background-position-x: 100%;
+        background-position-y: 7%;
+        background-size: 150px;
+    }
+
+    img {
+        width: 300px;
+        margin: 1em 3em;
+    }
+
+    .title {
+        font-size: 2em;
+    }
+    
+    h3 {
+        font-size: 1.25em;
+    }
+
+    .letter-space {
+        width: 5%;
+    }
+    
+    .letter-guess {
+        font-size: 1.75em;  
     }
 }
 
 @media (min-width: 1024px) {
-    main {
-        background-position-x: 100%;
-        background-position-y: 50%;
-        background-size: 450px;
+    .buttons-container {
+        margin: 1em 20em;
+        padding: 2em;
+    }
+
+    .letter-space {
+        width: 3%;
     }
 }
