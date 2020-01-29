@@ -9,6 +9,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const fullName = name.split(" ");
     const firstName = fullName[0].split("");
     const lastName = fullName[1].split("");
+    const winSound = () => new Audio("./assets/Win.wav");
+    const loseSound = () => new Audio("./assets/Lose.wav");
 
     firstName.forEach(l => {
         guessFirst.innerHTML += `<div class="letter-space"><small class="letter-guess" style="visibility: hidden;" name="${l}-guess">${l}</small></div>&nbsp;`
@@ -49,9 +51,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
             wrongGuesses.push(answer);
             if (wrongGuesses.length === 6) {
                 document.querySelector("img").outerHTML = `<img src="./assets/gallows${wrongGuesses.length}.jpg"></img>`;
+                setTimeout(function() {
+                    loseSound().play();
+                }, 0);
                 setTimeout(function(){ 
                     alert("Sorry! Better luck next time..."); 
-                }, 0);
+                }, 100);
             } else {
                 document.querySelector("img").outerHTML = `<img src="./assets/gallows${wrongGuesses.length}.jpg"></img>`;
             };
@@ -67,10 +72,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
             }
         });
         if (count === 0) {
+            setTimeout(function() {
+                winSound().play();
+            }, 0); 
             setTimeout(function(){ 
-                alert("Congratulations! You win!"); 
+                alert("Congratulations! You win!");
                 location.reload();
-            }, 0);
+            }, 100);
         };
     };
 
@@ -89,4 +97,3 @@ document.addEventListener("DOMContentLoaded", function(event) {
         };
     });
 });
-
