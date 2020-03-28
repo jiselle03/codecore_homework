@@ -4,79 +4,51 @@ class Turtle {
     constructor(x, y) {
         this.x = x || 0;
         this.y = y || 0;
-        this.coordinates = [[x, y]];
-    }
+        this.coordinates = [];
+    };
 
     angle = 0;
-    currentCoord = [];
     actualPrint = '';
 
     forward(num) {
-        if (this.angle === 0) { // moving right
-            let newX = this.x + num;
-            for (let a = this.x; a < newX; a++) {
-                this.x++;
-                this.currentCoord.push(this.x, this.y);
-                this.coordinates.push(this.currentCoord);
-                this.currentCoord = [];
-            }
-        } else if (this.angle === 90) { // moving down
-            let newY = this.y + num;
-            for (let b = this.y; b < newY; b++) {
-                this.y++;
-                this.currentCoord.push(this.x, this.y);
-                this.coordinates.push(this.currentCoord);
-                this.currentCoord = [];
-            }
-        } else if (this.angle === 180) { // moving left
-            let newX = this.x - num;
-            for (let c = this.x; c > newX; c--) {
-                this.x--;
-                this.currentCoord.push(this.x, this.y);
-                this.coordinates.push(this.currentCoord);
-                this.currentCoord = [];
-            }
-        } else if (this.angle === 270) { // moving up
-            let newY = this.y - num;
-            for (let d = this.y; d > newY; d--) {
-                this.y--;
-                this.currentCoord.push(this.x, this.y);
-                this.coordinates.push(this.currentCoord);
-                this.currentCoord = [];
-            }
-        }
-
+        switch(this.angle) {
+            case 0: // moving right
+                for (let a = this.x; a <= this.x + num; a++) this.coordinates.push([a, this.y]);
+                this.x += num;
+                break;
+            case 90: // moving down
+                for (let b = this.y; b <= this.y + num; b++) this.coordinates.push([this.x, b]);
+                this.y += num;
+                break;
+            case 180: // moving left
+                for (let c = this.x; c >= this.x - num; c--) this.coordinates.push([c, this.y]);
+                this.x -= num;
+                break;
+            case 270: //moving up
+                for (let d = this.y; d >= this.y - num; d--) this.coordinates.push([this.x, d]);
+                this.y -= num;
+                break;
+        };
         return this;
-    }
+    };
 
     right() {
-        if (this.angle < 270) {
-            this.angle += 90
-        } else {
-            this.angle = 0;
-        }
+        this.angle < 270 ? this.angle += 90 : this.angle = 0;
         return this;
-    }
+    };
 
     left() {
-        if (this.angle > 0) {
-            this.angle -= 90
-        } else {
-            this.angle = 270;
-        }
+        this.angle > 0 ? this.angle -= 90 : this.angle = 270;
         return this;
-    }
+    };
 
     allPoints() {
         console.log(this.coordinates); // printing every spot turtle walked on
         return this;
-    }
+    };
 
     print() {
-
         // find min and max to create a box to print turtles on 
-        // (and not create new lines in case turtle backtracks)
-
         let xArr = [];
         let yArr = [];
         
@@ -91,44 +63,38 @@ class Turtle {
         let minY = Math.min(...yArr);
         let toPrint = [];
 
-        if (minX > 0) {
-            minX = 0;
-        };
-
-        if (minY > 0) {
-            minY = 0;
-        };
+        if (minX > 0) minX = 0;
+        if (minY > 0) minY = 0;
         
         for (let j = minY; j <= maxY; j++) {
-            toPrint.push(' '.repeat(maxX - minX + 1))
-        }
+            toPrint.push(' '.repeat(maxX - minX + 1));
+        };
 
         // split into array per line and character to be able to find the right y and x
         toPrint.forEach((value, index) => {toPrint[index] = value.split('')}) 
         
-        // looping through coordinates array to find which spaces to replace with turtles
-        for (let k = 0; k < this.coordinates.length; k++) {
-            let x = this.coordinates[k][0];
-            let y = this.coordinates[k][1];
-            
+        // loop through coordinates array to find which spaces to replace with turtles
+        this.coordinates.forEach(endpoint => {
+            let x = endpoint[0];
+            let y = endpoint[1];
             toPrint[y - minY][x - minX] = '•';
-        }
+        });
         
         // joining all the elements
-        // add a space for aesthetic purpose (so x and y movements look more even)
-        toPrint.forEach((value, index) => {toPrint[index] = value.join(' ')}) 
+        // add a space so x and y movements look more even
+        toPrint.forEach((value, index) => {toPrint[index] = value.join(' ')});
         
         for (let l = 0; l < toPrint.length; l++) {
             if (l < toPrint.length - 1) {
-                this.actualPrint += toPrint[l] + '\n'
+                this.actualPrint += toPrint[l] + '\n';
             } else {
                 this.actualPrint += toPrint[l]
-            }
-        }
+            };
+        };
         console.log(this.actualPrint);
-    }
+    };
 
-}
+};
 
 // Tests
 const raphael = new Turtle(3, 2);
@@ -156,15 +122,15 @@ const fs = require('fs');
 const args = process.argv.slice(2);
 let fileName = '';
 let turtleCommands = '';
-let arr = args[0].split('=')
+let arr = args.length !== 0 ? args[0].split('=') : [];
 
-if (args.length === 2) { // If option to write to file is chosen
+if (args.length === 2) { // if option to write to file is chosen
     fileName = arr[1];
     turtleCommands = args[1];
     nodeTurtle(turtleCommands);
 } else { // simply print on console
     turtleCommands = args[0];
-    nodeTurtle(turtleCommands);
+    if (turtleCommands) nodeTurtle(turtleCommands);
 }
 
 // run turtle graphics via commands from node
@@ -196,7 +162,7 @@ function nodeTurtle(turtleCommands) {
     ninjaTurtle.print();
     let drawing = ninjaTurtle.actualPrint;
 
-    // printing to file
+    // print to file
     if (fileName === arr[1]) {
         fs.writeFile(fileName, drawing, err => {
             if (err) {
@@ -207,4 +173,3 @@ function nodeTurtle(turtleCommands) {
         })
     } 
 };
-
