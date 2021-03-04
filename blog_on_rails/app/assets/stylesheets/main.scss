@@ -1,0 +1,53 @@
+.container-fluid {
+  margin: 1.5em 0;
+}
+
+.nav-item {
+  margin: 0.5em;
+}
+
+@media (min-width: 768px) {
+  .cards-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+
+  .cards-container::after {
+    content: "";
+    flex: 0 0 48%;
+  }
+
+  .card {
+    width: 48%;
+  }
+
+  .nav-item {
+    margin: 0.5em 1.5em;
+  }
+
+}
+
+@media (min-width: 960px) {
+  .cards-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+
+  .cards-container::after {
+    content: "";
+    flex: 0 0 30%;
+  }
+
+  .card {
+    width: 30%;
+  }
+
+  .nav-item {
+    margin: 0.5em 1.5em;
+  }
+
+}

@@ -1,0 +1,15 @@
+<%= form_with(model: [@post, @comment], local: true) do |form|%>
+
+<div>
+    <% if @comment.errors.present? %>
+    <%= @comment.errors.full_messages.join(', ')%>
+    <% end %>
+</div>
+
+<div>
+    <h4><%= form.label :body, "Comment" %></h4>
+    <%= form.text_area :body, class: "col-md-6 control-label", placeholder: "What's on your mind?"%><br>
+    <%= form.submit "Submit", :class => "btn btn-outline-primary" %>
+</div>
+
+<% end %>

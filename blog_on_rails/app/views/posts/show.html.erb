@@ -1,0 +1,25 @@
+<div class="container-fluid">
+
+<h1><%= @post.title %></h1>
+<p><%= @post.body %></p>
+<small>Posted <%= time_ago_in_words(@post.created_at) %> ago • Updated <%= time_ago_in_words(@post.updated_at) %> ago</small><br>
+<br>
+<%= link_to("Edit", edit_post_path(@post.id), :class => "btn btn-outline-primary") %>
+<%= link_to("Delete", post_path, :class => "btn btn-outline-primary", method: :delete, data: {confirm: 'Are you sure?'}) %></button>
+<br><br>
+
+<%= render partial: 'comments/form' %>
+
+<br>
+
+<% if @post.comments.length > 0 %>
+
+<h4>Comments (<%= @post.comments.length %>)</h4>
+
+<%= render partial: 'comment', collection: @post.comments.all.reverse %>
+
+<br>
+
+<% end %>
+
+</div>
