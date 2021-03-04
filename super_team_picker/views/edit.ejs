@@ -1,0 +1,19 @@
+<%- include('./partials/header') %>
+
+<h4>Edit Cohort</h4>
+
+    <form method="POST" action="/cohorts/<%= cohort.id %>"> 
+        <input type="hidden" name="_method" value="PATCH">
+            <div class="form-group">
+                <label for="logoUrl">Logo URL</label><br>
+                <textarea name="logoUrl" cols=125 rows=1 class="form-control" required><%= cohort.logoUrl %></textarea><br>
+                <label for="name">Name</label><br>
+                <textarea name="name" cols=125 rows=1 class="form-control" required><%= cohort.name %></textarea><br>
+                <label for="members">Members</label><br>
+                <textarea name="members" cols=125 rows=3 class="form-control" required><%= cohort.members %></textarea>
+            </div>
+            <input type="submit" class="btn btn-outline-primary" value="Update">
+        
+    </form>
+
+<%- include('./partials/footer') %>

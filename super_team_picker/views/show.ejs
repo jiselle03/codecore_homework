@@ -1,0 +1,94 @@
+<%- include('./partials/header') %>
+
+<div class="card mb-3">
+    <div class="card-body">
+        <!-- Showing cohort info and option to edit and delete -->
+        <h4 class="card-title w-25"><%= cohort.name %></h4>
+        <p class="card-text" id="members"><%= cohort.members %></p>
+            <form action="/cohorts/<%= cohort.id %>" method="POST">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="submit" name="submit" value="Delete" class="btn btn-md btn-danger float-right">
+            </form>
+            <a href="/cohorts/<%= cohort.id %>/edit"><input type="submit" value="Edit" class="btn btn-md btn-warning mr-2 float-right"></a>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+        <hr>
+        <!-- Options for assigning teams within the cohort -->
+        <form>
+            
+            <h5>Method</h5>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="method" id="teamCount" value="teamCount">
+
+                <label class="form-check-label" for="teamCount">
+                    Team Count
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="method" id="perTeam" value="perTeam">
+                <label class="form-check-label" for="perTeam">
+                    Number Per Team
+                </label>
+            </div>
+            <div>&nbsp;</div>
+            <div class="form-group">
+                <h5 for="quantity">Quantity</h5>
+                <input type="text" class="form-control" name="quantity" id="quantity">
+            </div>
+            <input type="submit" value="Assign Teams" class="btn btn-outline-primary btn-lg btn-block">
+            
+        </form>
+    </div>
+</div>
+
+
+<% const members = cohort.members; %>
+<% const memberArr = members.split(','); %>
+
+<!-- If number of Number Per Team method is chosen -->
+<% if (method === "perTeam") { %>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Members</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% let team = utils.perTeam(memberArr, quantity) %>
+        <% let numTeams = utils.numTeams(memberArr, quantity) %>
+        <% for (let i = 0; i < team.length; i++) { %>
+            <tr>
+                <td><%= i + 1 %></td>
+                <td><%= team[i] %></td>
+            </tr>
+        <% } %>
+        
+    </tbody>
+</table>
+
+<!-- If Team Count method is chosen -->
+<% } else if (method === "teamCount") { %>
+    <table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Members</th>
+        </tr>
+    </thead>
+    <tbody>
+
+    <% let team = utils.teamCount(memberArr, quantity) %>
+    <% for (let j = 0; j < team.length; j++) { %>
+        <tr>
+        <td><%= j + 1 %></td>
+        <td><%= team[j] %></td>
+        </tr>
+    <% } %>
+
+</tbody>
+</table>  
+<% } %>
+
+
+<%- include('./partials/footer') %>
