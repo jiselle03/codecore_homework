@@ -1,9 +1,43 @@
 .container-fluid {
-  margin: 1.5em 0;
+  margin: 2em 0;
 }
 
-.nav-item {
-  margin: 0.5em;
+.container {
+  margin: auto;
+}
+
+.box {
+  margin: 2em 4em;
+  padding: 2em;
+  border: 1px solid lightgrey;
+  box-shadow: 5px 5px #888888;
+}
+
+.box h3 {
+  text-align: center;
+}
+
+.box .center {
+  margin: auto;
+  display:block;
+}
+
+.col-sm-4 {
+  margin: 0 auto;
+}
+
+.navbar-nav {
+  flex: display;
+  flex-direction:row;
+}
+
+.alt-option {
+  text-align: center;
+}
+
+.label {
+  font-weight: 500;
+  font-size: 0.75em;
 }
 
 @media (min-width: 768px) {
@@ -23,8 +57,8 @@
     width: 48%;
   }
 
-  .nav-item {
-    margin: 0.5em 1.5em;
+  .box {
+    margin: 2em 8em;
   }
 
 }
@@ -46,8 +80,8 @@
     width: 30%;
   }
 
-  .nav-item {
-    margin: 0.5em 1.5em;
+  .box {
+    margin: 2em 10em;
   }
 
 }

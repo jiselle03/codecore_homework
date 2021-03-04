@@ -1,0 +1,31 @@
+<main class="container">
+<div class="box">
+<h3 class="h3 mb-3 font-weight-normal">Account</h3>
+
+<%= form_with model: @user, local: true do |f| %>
+
+    <% if @user.errors.any? %>
+        <p><%= user.errors.full_messages.join(", ") %></p>
+    <% end %>
+    <h5>Profile</h5>
+    <div class="row">
+    <%= f.label :name, class: "col-md-3" %>
+    <%= f.text_field :name, class: "form-control col-md-9" %>
+    </div>
+    <div class="row">
+    <%= f.label :email_address, class: "col-md-3" %>
+    <%= f.email_field :email, class: "form-control col-md-9" %>
+    </div>
+
+<br>
+    <%= f.submit "Update", :class => "btn btn-outline-primary" %>
+
+<% end %>
+<hr>
+<h5>Security</h5>
+
+<%= link_to('Change Password', edit_password_path(@user.id), class: "btn btn-outline-primary") %>
+
+<br>
+</div>
+</main>

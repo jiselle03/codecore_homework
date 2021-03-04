@@ -8,19 +8,48 @@
 
 Post.destroy_all()
 Comment.destroy_all()
+User.destroy_all()
 
-100.times do
+PASSWORD = "supersecret"  
+
+super_user = User.create( 
+    name: "Hermione Granger", 
+    email: "hermionegranger@hogwarts.edu", 
+    password: PASSWORD,
+    is_admin: true
+) 
+
+25.times do 
+    name = Faker::Movies::HarryPotter.character
+    email = "#{name.downcase.delete(" ")}@hogwarts.edu"
+    User.create( 
+        name: name,  
+        email: email, 
+        password: PASSWORD
+    )
+end 
+
+users = User.all 
+puts Cowsay.say("Created #{users.count} users", :tux)  
+puts "Login with #{super_user.email} and password of '#{PASSWORD}'"
+
+250.times do
+    user = users.sample 
+    past_date = Faker::Date.backward(days:365 * 5)
     p = Post.create(
         title: Faker::TvShows::Buffy.episode,
         body: Faker::Lorem.paragraph(sentence_count: 5, supplemental: true, random_sentences_to_add: 4),
-        created_at: Faker::Date.backward(days:365 * 5),
-        updated_at: Faker::Date.backward(days:365 * 5)
+        created_at: past_date,
+        updated_at: past_date,
+        user_id: user.id
     )
     if p.valid?
         p.comments = rand(0..10).times.map do
+            user = users.sample 
             Comment.new(
-                body: Faker::TvShows::Buffy.quote, 
+                body: Faker::Movies::HarryPotter.quote, 
                 created_at: Faker::Date.backward(days:365 * 5),
+                user_id: user.id
             )
         end
     end
